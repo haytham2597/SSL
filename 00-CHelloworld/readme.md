@@ -15,7 +15,7 @@ Temas:
 - Pruebas.
 
 ## Datos 
-- Número de equipo: 4
+- Número de equipo: 5
 - Autores de la resolución: Dimitri Isakow
 - Usuario github: haytham2597
 - Legajo: 164.780-5
