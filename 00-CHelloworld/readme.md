@@ -22,7 +22,9 @@ Temas:
 - Apellido: Isakow
 - Nombre: Dimitri
 - Número y título del trabajo: 00-CHelloworld
-- Compilador: MSVC v142
+- Compilador: 
+    * MSVC v142
+    * MinGW con C11
 - IDE: Visual Studio 2022
 
 ## Introducción [Código completo](https://github.com/haytham2597/SSL/blob/master/00-CHelloworld/hello.c)
@@ -70,3 +72,10 @@ Volvemos a compilar y FIN. El programa funciona correctamente.
 ### Resultado:
 1. Imprime la cadena en la pantalla
 2. Crea un archivo txt, lo escribe en él y lo guarda
+
+# Nota adicional
+Si es que malinterpreté el punto 3. b. iv:
+1. Se instaló el MinGW
+2. Se ejecutó el comando: `gcc hello.c -o hello -std=c11` este comando compiló el archivo `hello.c` con c11 y creó el ejecutable `hello.exe`
+3. Se ejecutó el comando `hello.exe > output.txt` esto lo que hizo fue ejecutar el `hello.exe` y luego escribió lo que imprimió en la pantalla en un archivo `output.txt`
+4. El resultado del `output.txt` es el mismo que imprimió en la pantalla el ejecutable, es el resultado esperado.
