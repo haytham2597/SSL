@@ -70,11 +70,11 @@ int GetSize(const char* str)
 
 int charToInt(const char* ch)
 {
-	//TODO: Implement fix si una cadena tiene 15 por ejemplo debería returnar 15
+	//TODO: Implement fix si una cadena tiene 15 por ejemplo deberÃ­a returnar 15
 	return tolower(ch);
 }
 
-//Implementar con pila, matemática discreta unidad 9 calculo de operaciones con pila
+//Implementar con pila, matemÃ¡tica discreta unidad 9 calculo de operaciones con pila
 //Implementar arbol binario para operar las cuentas https://www.scaler.com/topics/binary-tree-in-c/
 /*
  *
@@ -141,3 +141,75 @@ int main(int argc, char* argv[])
 	printf("%i", GetType(decimales)); //2
 	printf("%i", GetType(hexadecimal)); //3
 }
+
+//pto3 (planteado solamente)
+/*
+int charToInt(char c){
+    int i = c;
+    return i - 48;
+}
+
+struct Nodo {
+    char c;
+    struct Nodo* izq;
+    struct Nodo* der;
+};
+
+//crea la raiz del arbol poniendo el caracter X como identificador que recien se creo
+struct Nodo* crearArbol(){
+    struct Nodo* ret = malloc(sizeof(struct Nodo));
+    ret->c = 'X';
+    ret->der = NULL;
+    ret->izq = NULL;
+    return ret;
+}
+
+//crea una hoja del arbol asignandole el caracter leido
+struct Nodo* crearNodo(char c){
+    struct Nodo* ret = malloc(sizeof(struct Nodo));
+    ret->c = c;
+    ret->der = NULL;
+    ret->izq = NULL;
+    return ret;
+}
+
+//lee la cadena y va armando el arbol (ni cerca de terminarlo)
+void desarrollarArbol(struct Nodo* arbol, char str[20]){
+    char izq, der, c;
+    struct Nodo* aux = arbol;
+    for(int i=0; str[i] /= '\0'; i++){
+        c = str[i];
+        //para identificar si es el primer caracter leido o no (se podria hacer de alguna manera mas linda pero no se me ocurrio)
+        if( aux->c == 'X'){
+            aux->c = c;
+        }
+        else{
+            if(charToInt(c) < 0 || charToInt(c) > 9){
+                struct Nodo* n = crearNodo(c);
+            }
+            else{
+            }
+        }
+
+    }
+}
+
+//recorre el arbol y da el resultado final
+int resultadoArbol(struct Nodo* arbol){
+    int resultado = 0;
+    return resultado;
+}
+
+int main()
+{
+    char str[20];
+    printf("escriba la operacion");
+    scanf("%s", &str);
+    struct Nodo* arbol = crearArbol();
+    desarrollarArbol(arbol, str);
+    int resultado = resultadoArbol(arbol);
+    printf("el resultado es: %i", resultado);
+    system("pause");
+    return 0;
+}
+*/   
