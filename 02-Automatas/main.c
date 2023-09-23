@@ -63,18 +63,19 @@ int GetSize(const char* str)
 	//https://stackoverflow.com/questions/48367022/c-iterate-through-char-array-with-a-pointer
 	const char* cop_str = NULL; //Se asigna en for
 	int siz = 0;
-	for (cop_str = str; *cop_str != '\0'; cop_str++)
+	for (cop_str = str; *cop_str != '\0'; cop_str++) //Itera hasta terminacion nula
 		siz++;
 	return siz;
 }
 
-int charToInt(const char ch)
+int charToInt(const char* ch)
 {
-	//TODO: Implement fix
+	//TODO: Implement fix si una cadena tiene 15 por ejemplo debería returnar 15
 	return tolower(ch);
 }
 
 //Implementar con pila, matemática discreta unidad 9 calculo de operaciones con pila
+//Implementar arbol binario para operar las cuentas https://www.scaler.com/topics/binary-tree-in-c/
 /*
  *
 typedef struct tnodo
