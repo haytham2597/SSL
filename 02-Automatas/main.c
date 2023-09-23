@@ -1,14 +1,9 @@
 //#define _CRT_SECURE_NO_WARNINGS
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <ctype.h>
 #include <stdbool.h>
 #include <string.h> //strtok
-/*typedef struct EstructuraCadena
-{
-	
-}cadena;*/
 
 //Constants
 //*, /, +, -  respectivamente //https://elcodigoascii.com.ar/ ordenado por precedencia de operadores
@@ -24,7 +19,6 @@ int Calculate(const char* equation);
 enum TipoDeCadena GetType(const char* str);
 enum TipoDeCadena { none, octal, decimal, hexadecimal };
 
-
 //Func
 bool ContainOperator(const char* str)
 {
@@ -35,13 +29,14 @@ bool ContainOperator(const char* str)
 	return false;
 }
 
-bool IsOperator(int ascii)
+bool IsOperator(const int ascii)
 {
 	for (int j = 0; j < sizeof(operaciones); j++)
 		if (operaciones[j] == ascii)
 			return true;
 	return false;
 }
+
 enum TipoDeCadena GetType(const char* str)
 {
 	//WARNING: FIX
@@ -67,7 +62,7 @@ enum TipoDeCadena GetType(const char* str)
 int GetSize(const char* str)
 {
 	//https://stackoverflow.com/questions/48367022/c-iterate-through-char-array-with-a-pointer
-	const char* cop_str = NULL;
+	const char* cop_str = NULL; //Se asigna en for
 	int siz = 0;
 	for (cop_str = str; *cop_str != '\0'; cop_str++)
 		siz++;
@@ -111,5 +106,4 @@ int main(int argc, char* argv[])
 	printf("%i", GetType(octales)); //1
 	printf("%i", GetType(decimales)); //2
 	printf("%i", GetType(hexadecimal)); //3
-
 }
