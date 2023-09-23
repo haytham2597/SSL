@@ -11,13 +11,16 @@
 }cadena;*/
 
 //Constants
-//*, +, -, / respectivamente //https://elcodigoascii.com.ar/
-int operaciones[] = { 42,43,45,47, };
+//*, /, +, -  respectivamente //https://elcodigoascii.com.ar/ ordenado por precedencia de operadores
+int operaciones[] = { 42,47,43,45, };
 
 //Header
 int GetSize(const char* str);
 int charToInt(char ch);
 bool IsOperator(int ch);
+
+//TODO: Implement with Node sgt
+int Calculate(const char* equation);
 enum TipoDeCadena GetType(const char* str);
 enum TipoDeCadena { none, octal, decimal, hexadecimal };
 
@@ -31,12 +34,13 @@ bool IsOperator(int ascii)
 }
 enum TipoDeCadena GetType(const char* str)
 {
+	//WARNING: FIX
 	const int len = GetSize(str);
 	enum TipoDeCadena explicit_type = none;
 	for(int i=0;i<len;i++)
 	{
 		const int low = tolower(str[i]); //https://www.programiz.com/c-programming/library-function/ctype.h/tolower
-		if (IsOperator(low))
+		if (IsOperator(low)) //Excluir los que contienen operaciones, ya que solo validamos cadena aunque la cadena tenga signo con decimal, retorna decimal igual.
 			continue;
 		if (low < 48 || low > 102)
 			return none;
@@ -66,6 +70,12 @@ int charToInt(const char ch)
 	return tolower(ch);
 }
 
+int Calculate(const char* equation)
+{
+	//TODO: Implement, with node sgt???
+	return 0;
+}
+
 int main(int argc, char* argv[])
 {
 	for(int i=0;i<argc;i++)
@@ -76,8 +86,9 @@ int main(int argc, char* argv[])
 			tok = strtok_s(argv[i], "$", NULL);
 			const enum TipoDeCadena tipo = GetType(tok);
 			if (tipo == none)
-				printf("Error lexico en %s", tok);
-
+				printf("Error lexico en %s", tok); //Si contiene parentesis va a arrojar error lexico tamb
+			if (tipo == decimal) //Calculate equation
+				printf("Resultado de la ecuacion %i", Calculate(tok));
 		}
 	}
 	const char* nada = "07ds9";
