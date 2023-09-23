@@ -18,13 +18,23 @@ int operaciones[] = { 42,47,43,45, };
 int GetSize(const char* str);
 int charToInt(char ch);
 bool IsOperator(int ch);
-
+bool ContainOperator(const char* str);
 //TODO: Implement with Node sgt
 int Calculate(const char* equation);
 enum TipoDeCadena GetType(const char* str);
 enum TipoDeCadena { none, octal, decimal, hexadecimal };
 
+
 //Func
+bool ContainOperator(const char* str)
+{
+	const int len = GetSize(str);
+	for (int i = 0; i < len; i++)
+		if(IsOperator(str[i]))
+			return true;
+	return false;
+}
+
 bool IsOperator(int ascii)
 {
 	for (int j = 0; j < sizeof(operaciones); j++)
@@ -78,7 +88,7 @@ int Calculate(const char* equation)
 
 int main(int argc, char* argv[])
 {
-	for(int i=0;i<argc;i++)
+	for(int i=0;i<argc;i++) //En caso de que en las cadenas ademas de contener $ para splitear, tambien se separo con argumento (espacio)
 	{
 		char* tok = strtok_s(argv[i], "$", NULL); //strtok_s para no arrojar warnings, en caso de usar sin _s se necesita definir _CRT_SECURE_NO_WARNINGS
 		while(tok != NULL)
@@ -87,7 +97,7 @@ int main(int argc, char* argv[])
 			const enum TipoDeCadena tipo = GetType(tok);
 			if (tipo == none)
 				printf("Error lexico en %s", tok); //Si contiene parentesis va a arrojar error lexico tamb
-			if (tipo == decimal) //Calculate equation
+			if (tipo == decimal && ContainOperator(tok)) //Calculate equation, primero valido si tiene operaciones
 				printf("Resultado de la ecuacion %i", Calculate(tok));
 		}
 	}
@@ -95,8 +105,11 @@ int main(int argc, char* argv[])
 	const char* octales = "046247105612";
 	const char* decimales = "012934816";
 	const char* hexadecimal = "48f6a02A2BECfd";
-	printf("%i", GetType(nada));
-	printf("%i", GetType(octales));
-	printf("%i", GetType(decimales));
-	printf("%i", GetType(hexadecimal));
+
+	//Arreglar resultado diferente a lo comentado
+	printf("%i", GetType(nada)); //0
+	printf("%i", GetType(octales)); //1
+	printf("%i", GetType(decimales)); //2
+	printf("%i", GetType(hexadecimal)); //3
+
 }
