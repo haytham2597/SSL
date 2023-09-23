@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <ctype.h>
-#include <stdbool.h>
 #include <string.h> //strtok
 
 //Constants
@@ -12,29 +11,29 @@ int operaciones[] = { 42,47,43,45, };
 //Header
 int GetSize(const char* str);
 int charToInt(char ch);
-bool IsOperator(int ch);
-bool ContainOperator(const char* str);
+int IsOperator(int ch);
+int ContainOperator(const char* str);
 //TODO: Implement with Node sgt
 int Calculate(const char* equation);
 enum TipoDeCadena GetType(const char* str);
 enum TipoDeCadena { none, octal, decimal, hexadecimal };
 
 //Func
-bool ContainOperator(const char* str)
+int ContainOperator(const char* str)
 {
 	const int len = GetSize(str);
 	for (int i = 0; i < len; i++)
 		if(IsOperator(str[i]))
-			return true;
-	return false;
+			return 1;
+	return 0;
 }
 
-bool IsOperator(const int ascii)
+int IsOperator(const int ascii)
 {
 	for (int j = 0; j < sizeof(operaciones); j++)
 		if (operaciones[j] == ascii)
-			return true;
-	return false;
+			return 1;
+	return 0;
 }
 
 enum TipoDeCadena GetType(const char* str)
@@ -75,6 +74,40 @@ int charToInt(const char ch)
 	return tolower(ch);
 }
 
+//Implementar con pila, matemática discreta unidad 9 calculo de operaciones con pila
+/*
+ *
+typedef struct tnodo
+{
+	int info;
+	struct tnodo* sig;
+}nodo;
+
+typedef nodo* ptrNodo;
+
+void push(ptrNodo* pila, int x)
+{
+	//armar un nodo y reservar memoria
+	ptrNodo p = (ptrNodo)malloc(sizeof(nodo));
+	//guarda la info
+	p->info = x;
+	p->sig = *pila;
+	//apunta
+	*pila = p;
+}
+
+int pop(ptrNodo* pila)
+{
+	int x = (*pila)->info;
+	ptrNodo p = (*pila);
+	//tengo la info
+	(*pila) = p->sig;
+
+	free(p);
+	//delete p;
+	return x;
+}
+ **/
 int Calculate(const char* equation)
 {
 	//TODO: Implement, with node sgt???
