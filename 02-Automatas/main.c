@@ -27,32 +27,16 @@ void memoryreference(int* mem)
 }
 int main(int argc, char* argv[])
 {
-	/*ptrNodo pila = NULL;
-	push(&pila, 'x');
-	push(&pila, 'y');
-	for(ptrNodo i=&pila;i /= NULL;i++)
-	{
-		
-	}
-	int v = pop(&pila);
-	printf("%c ", v);
-	v = pop(&pila);
-	printf("%c ", v);*/
-
-
-
-	printf("%i \n", 3 < 4);
-	printf("%i \n", 3 > 4);
 	char* po = get_polaca("3+4*8/2+3-5");
-	printf("LA POLACA ES: %s \n", po);
-	int l = 3;
-	//int* l = malloc(sizeof(int));
-	printf("%i", l);
-	memoryreference(&l);
-	printf("%i", l);
-	printf("%i", is_possible_calculate("+541*"));
 
-	node_* root = create('/');
+    node_* tr = build_tree(po);
+    postorderTraversal(tr);
+    /*
+    char* rev = _strrev(po);
+
+    printf("Reversa: %s", rev);
+    printf("La polaca inversa es: %s \n", po);*/
+	/*node_* root = create('/');
 	insert_left(root, '*');
 	insert_right(root, '+');
 	insert_right(root->left, '6');
@@ -66,7 +50,7 @@ int main(int argc, char* argv[])
 	insert_left(root->right, '*');
 	insert_left(root->right->left, '2');
 	insert_right(root->right->left, '8');
-	preorderTraversal(root);
+	preorderTraversal(root);*/
 
 	/*for(int i=0;i<argc;i++) //En caso de que en las cadenas ademas de contener $ para splitear, tambien se separo con argumento (espacio)
 	{

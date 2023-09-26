@@ -18,27 +18,13 @@
 //https://www.omnicalculator.com/math/polish-notation
 //https://www.andreinc.net/2010/10/05/converting-infix-to-rpn-shunting-yard-algorithm muestra el pseudocódigo
 
-int is_right_associative(int val)
-{
-	return is_operator(val);
-}
-
-int should_pop(int prev, int val)
-{
-	int a = is_right_associative(val);
-	int b = get_operator(prev) < get_operator(val);
-	int c = is_right_associative(val);
-	int d = get_operator(prev) <= get_operator(val);
-	return ;
-}
-
 /**
  * \brief 
  * \param var Variables representa los números que compone la ecuación
  * \param sy Símbolos representa los símbolos que utiliza la ecuación; *,/,-,+, etc.
  * \param val valor
  */
-void update_stack(stack_* var, stack_* sy, const int val)
+void update_stack(stack_* var, stack_* sy, const char val) //https://github.com/stephenwashington/convert/blob/master/src/infix_to_rpn.c
 {
 	if (!is_operator(val)) {
 		push(var, val);
@@ -66,15 +52,12 @@ void update_stack(stack_* var, stack_* sy, const int val)
 	}
 }
 
-
-
 char* get_polaca(const char* equation)
 {
 	stack_ v = { .size = 0, .content = {0} };
 	stack_ s = { .size = 0, .content = {0} };
-	for (size_t i = 0; i < strlen(equation);i++) //https://learn.microsoft.com/es-es/cpp/c-runtime-library/reference/strlen-wcslen-mbslen-mbslen-l-mbstrlen-mbstrlen-l?view=msvc-170
+	for (size_t i = 0; i < strlen(equation);i++) 
 		update_stack(&v, &s, equation[i]);
-	
 	for (int i = s.size - 1; i >= 0; i--) {
 		v.content[v.size] = s.content[i];
 		v.size++;

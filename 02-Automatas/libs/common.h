@@ -25,7 +25,7 @@ char* add_parenthesis(const char* eq);
 
 inline int contain_operator(const char* str)
 {
-	for (size_t i = 0; i < strlen(str); i++)
+	for (size_t i = 0; i < strlen(str); i++) //https://learn.microsoft.com/es-es/cpp/c-runtime-library/reference/strlen-wcslen-mbslen-mbslen-l-mbstrlen-mbstrlen-l?view=msvc-170
 		if (is_operator(str[i]))
 			return 1;
 	return 0;
@@ -76,16 +76,6 @@ inline enum TipoDeCadena get_type(const char* str)
 	}
 	return explicit_type;
 }
-
-/*inline int get_size(const char* str)
-{
-	//https://stackoverflow.com/questions/48367022/c-iterate-through-char-array-with-a-pointer
-	const char* cop_str = NULL; //Se asigna en for
-	int siz = 0;
-	for (cop_str = str; *cop_str != '\0'; cop_str++) //Itera hasta terminacion nula
-		siz++;
-	return siz;
-}*/
 
 inline int charToInt(const char* ch)
 {
