@@ -52,7 +52,7 @@ void update_stack(stack_* var, stack_* sy, const char val) //https://github.com/
 	}
 }
 
-char* get_polaca(const char* equation)
+char* get_polaca_inversa(const char* equation)
 {
 	stack_ v = { .size = 0, .content = {0} };
 	stack_ s = { .size = 0, .content = {0} };

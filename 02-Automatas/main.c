@@ -15,42 +15,24 @@
 #include "modules/usual_to_polaca.h"
 #endif
 
-int Calculate(const char* equation)
+int Calculate(char* equation)
 {
-	//TODO: Implement, with node sgt???
-	return 0;
+    //stack_ st{.content = {0}, .size = 0};
+    char* gpi = get_polaca_inversa(equation);
+    node_* tr = build_tree(gpi);
+    int result = calculate_tree(tr);
+    free(tr);
+    return result;
 }
 
-void memoryreference(int* mem)
-{
-	*mem = 9;
-}
 int main(int argc, char* argv[])
 {
-	char* po = get_polaca("3+4*8/2+3-5");
+	char* po = get_polaca_inversa("33+4*8/2+3-5"); //tiene que dar 17
+    //char* po = get_polaca("2*4+3/9-2"); //Probando tiene que dar 6 ya que 3/9 al pasarlo como entero da 0 pero de double por ej: daria 0.33
 
-    node_* tr = build_tree(po);
-    postorderTraversal(tr);
-    /*
-    char* rev = _strrev(po);
-
-    printf("Reversa: %s", rev);
-    printf("La polaca inversa es: %s \n", po);*/
-	/*node_* root = create('/');
-	insert_left(root, '*');
-	insert_right(root, '+');
-	insert_right(root->left, '6');
-	insert_left(root->left, '^');
-	insert_right(root->left->left, '2');
-	insert_left(root->left->left, '-');
-	insert_left(root->left->left->left, '5');
-	insert_right(root->left->left->left, '3');
-
-	insert_right(root->right, '8');
-	insert_left(root->right, '*');
-	insert_left(root->right->left, '2');
-	insert_right(root->right->left, '8');
-	preorderTraversal(root);*/
+	printf("La polaca inversa es: %s \n", po);
+    printf("Resultado: %i\n", Calculate("3+4*8/2+3-5")); //tiene que dar 17
+    printf("Resultado: %i\n", Calculate("2*4+3/9-2")); //Es una prueba tiene que dar 6 ya que 3/9 al pasarlo como entero da 0 pero de double por ej: daria 0.33
 
 	/*for(int i=0;i<argc;i++) //En caso de que en las cadenas ademas de contener $ para splitear, tambien se separo con argumento (espacio)
 	{
@@ -76,75 +58,3 @@ int main(int argc, char* argv[])
 	printf("%i", GetType(decimales)); //2
 	printf("%i", GetType(hexadecimal)); //3*/
 }
-
-//pto3 (planteado solamente)
-/*
-int charToInt(char c){
-    int i = c;
-    return i - 48;
-}
-
-struct Nodo {
-    char c;
-    struct Nodo* izq;
-    struct Nodo* der;
-};
-
-//crea la raiz del arbol poniendo el caracter X como identificador que recien se creo
-struct Nodo* crearArbol(){
-    struct Nodo* ret = malloc(sizeof(struct Nodo));
-    ret->c = 'X';
-    ret->der = NULL;
-    ret->izq = NULL;
-    return ret;
-}
-
-//crea una hoja del arbol asignandole el caracter leido
-struct Nodo* crearNodo(char c){
-    struct Nodo* ret = malloc(sizeof(struct Nodo));
-    ret->c = c;
-    ret->der = NULL;
-    ret->izq = NULL;
-    return ret;
-}
-
-//lee la cadena y va armando el arbol (ni cerca de terminarlo)
-void desarrollarArbol(struct Nodo* arbol, char str[20]){
-    char izq, der, c;
-    struct Nodo* aux = arbol;
-    for(int i=0; str[i] /= '\0'; i++){
-        c = str[i];
-        //para identificar si es el primer caracter leido o no (se podria hacer de alguna manera mas linda pero no se me ocurrio)
-        if( aux->c == 'X'){
-            aux->c = c;
-        }
-        else{
-            if(charToInt(c) < 0 || charToInt(c) > 9){
-                struct Nodo* n = crearNodo(c);
-            }
-            else{
-            }
-        }
-
-    }
-}
-
-//recorre el arbol y da el resultado final
-int resultadoArbol(struct Nodo* arbol){
-    int resultado = 0;
-    return resultado;
-}
-
-int main()
-{
-    char str[20];
-    printf("escriba la operacion");
-    scanf("%s", &str);
-    struct Nodo* arbol = crearArbol();
-    desarrollarArbol(arbol, str);
-    int resultado = resultadoArbol(arbol);
-    printf("el resultado es: %i", resultado);
-    system("pause");
-    return 0;
-}
-*/   

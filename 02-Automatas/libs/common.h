@@ -77,7 +77,7 @@ inline enum TipoDeCadena get_type(const char* str)
 	return explicit_type;
 }
 
-inline int charToInt(const char* ch)
+inline int charToInt(char ch)
 {
 	return (int)ch - 48;
 	/*//TODO: Implement fix si una cadena tiene 15 por ejemplo debería returnar 15
