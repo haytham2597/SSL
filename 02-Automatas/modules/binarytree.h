@@ -15,6 +15,7 @@ typedef struct node
 {
 	char val;
 	int isOperator;
+	struct node* root;
 	struct node* left;
 	struct node* right;
 }node_;
@@ -24,6 +25,7 @@ node_* create(char value)
 	node_* new_node = malloc(sizeof(node_));
 	new_node->val = value;
 	new_node->isOperator = is_operator(value);
+	new_node->root = new_node;
 	new_node->left = NULL;
 	new_node->right = NULL;
 	return new_node;

@@ -10,41 +10,57 @@
 
 //Constants
 //*, /, +, -  respectivamente //https://elcodigoascii.com.ar/ ordenado por precedencia de operadores
-int operators[] = { 42,47,43,45, };
+int operators[] = { 42,47,45,43 };
 
 //Header
 enum TipoDeCadena { none, octal, decimal, hexadecimal };
-int get_size(const char* str);
+//int get_size(const char* str);
 int char_to_int(char ch);
 int is_operator(int ascii);
 int is_possible_calculate(const char* eq); 
 int contain_operator(const char* str);
+int op_precedence(char c);
 enum TipoDeCadena get_type(const char* str);
 char* add_parenthesis(const char* eq);
 
 inline int contain_operator(const char* str)
 {
-	const int len = get_size(str);
-	for (int i = 0; i < len; i++)
+	for (size_t i = 0; i < strlen(str); i++)
 		if (is_operator(str[i]))
 			return 1;
 	return 0;
 }
 
+inline int op_precedence(char c)
+{
+	if (c == '*' || c == '/')
+		return 2;
+	if (c == '+' || c == '-')
+		return 1;
+	return 0;
+}
+
 inline int is_operator(const int ascii)
 {
-	for (size_t j = 0; j < sizeof(operators); j++)
-		if (operators[j] == ascii)
+	for (size_t i = 0; i < sizeof(operators)/sizeof(int); i++) //https://stackoverflow.com/questions/1597830/iterate-through-a-c-array
+		if (operators[i] == ascii)
 			return 1;
 	return 0;
+}
+
+inline int get_operator(const int ascii)
+{
+	for (size_t i = 0; i < sizeof(operators) / sizeof(int); i++)
+		if (operators[i] == ascii)
+			return (int)i;
+	return (sizeof(operators) / sizeof(int))+1;
 }
 
 inline enum TipoDeCadena get_type(const char* str)
 {
 	//WARNING: FIX
-	const int len = get_size(str);
 	enum TipoDeCadena explicit_type = none;
-	for (int i = 0; i < len; i++)
+	for (size_t i = 0; i < strlen(str); i++)
 	{
 		const int low = tolower(str[i]); //https://www.programiz.com/c-programming/library-function/ctype.h/tolower
 		if (is_operator(low)) //Excluir los que contienen operaciones, ya que solo validamos cadena aunque la cadena tenga signo con decimal, retorna decimal igual.
@@ -61,7 +77,7 @@ inline enum TipoDeCadena get_type(const char* str)
 	return explicit_type;
 }
 
-inline int get_size(const char* str)
+/*inline int get_size(const char* str)
 {
 	//https://stackoverflow.com/questions/48367022/c-iterate-through-char-array-with-a-pointer
 	const char* cop_str = NULL; //Se asigna en for
@@ -69,7 +85,7 @@ inline int get_size(const char* str)
 	for (cop_str = str; *cop_str != '\0'; cop_str++) //Itera hasta terminacion nula
 		siz++;
 	return siz;
-}
+}*/
 
 inline int charToInt(const char* ch)
 {
@@ -80,7 +96,7 @@ inline int charToInt(const char* ch)
 
 inline int is_possible_calculate(const char* eq)
 {
-	const int siz = get_size(eq);
+	const size_t siz =strlen(eq);
 	return !(is_operator(eq[0]) || is_operator(eq[siz - 1]));
 }
 
@@ -89,12 +105,4 @@ inline int ShouldAddParenthesis(char ch)
 	return ch == operators[0] || ch == operators[1];
 }
 
-inline char* add_parenthesis(const char* eq)
-{
-	const int siz = get_size(eq);
-	for (int i = 0; i < siz; i++)
-	{
-
-	}
-}
 #endif

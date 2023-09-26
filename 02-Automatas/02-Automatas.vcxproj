@@ -132,6 +132,8 @@
   <ItemGroup>
     <ClInclude Include="libs\common.h" />
     <ClInclude Include="modules\binarytree.h" />
+    <ClInclude Include="modules\stack.h" />
+    <ClInclude Include="modules\usual_to_polaca.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

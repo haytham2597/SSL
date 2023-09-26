@@ -26,5 +26,11 @@
     <ClInclude Include="libs\common.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="modules\stack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\usual_to_polaca.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

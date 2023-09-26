@@ -10,15 +10,45 @@
 #include "modules/binarytree.h"
 #endif
 
+#ifndef AUTOMATAS_MODULES_USUALTOPOLACA_H
+#include "modules/usual_to_polaca.h"
+#endif
+
 int Calculate(const char* equation)
 {
 	//TODO: Implement, with node sgt???
 	return 0;
 }
 
+void memoryreference(int* mem)
+{
+	*mem = 9;
+}
 int main(int argc, char* argv[])
 {
+	/*ptrNodo pila = NULL;
+	push(&pila, 'x');
+	push(&pila, 'y');
+	for(ptrNodo i=&pila;i /= NULL;i++)
+	{
+		
+	}
+	int v = pop(&pila);
+	printf("%c ", v);
+	v = pop(&pila);
+	printf("%c ", v);*/
 
+
+
+	printf("%i \n", 3 < 4);
+	printf("%i \n", 3 > 4);
+	char* po = get_polaca("3+4*8/2+3-5");
+	printf("LA POLACA ES: %s \n", po);
+	int l = 3;
+	//int* l = malloc(sizeof(int));
+	printf("%i", l);
+	memoryreference(&l);
+	printf("%i", l);
 	printf("%i", is_possible_calculate("+541*"));
 
 	node_* root = create('/');
