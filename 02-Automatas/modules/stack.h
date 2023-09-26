@@ -11,7 +11,7 @@
 
 typedef struct stack
 {
-	int content[MAX_STACK]; //los char representan enteros de tabla ASCII 0-255
+	char content[MAX_STACK]; //los char representan enteros de tabla ASCII 0-255
 	int size; //tamaño de contenido pila
 }stack_;
 

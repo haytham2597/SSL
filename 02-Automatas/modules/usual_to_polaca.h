@@ -51,7 +51,7 @@ void update_stack(stack_* var, stack_* sy, const int val)
 		}
 		while (sy->size > 0)
 		{
-			const int prev = sy->content[sy->size - 1];
+			const char prev = sy->content[sy->size - 1];
 			if (op_precedence(prev) >= op_precedence(val))
 			{
 				push(var, prev);
@@ -66,6 +66,8 @@ void update_stack(stack_* var, stack_* sy, const int val)
 	}
 }
 
+
+
 char* get_polaca(const char* equation)
 {
 	stack_ v = { .size = 0, .content = {0} };
@@ -77,14 +79,9 @@ char* get_polaca(const char* equation)
 		v.content[v.size] = s.content[i];
 		v.size++;
 	}
-	for (int i = 0; i < v.size; i++)
-		printf("%c ", v.content[i]);
-	printf("\n");
-
-	char* result = calloc(MAX_STACK, sizeof(char));
-	memcpy(result, v.content, MAX_STACK);
+	char* result = (char*)malloc(MAX_STACK);
+	strcpy(result, v.content);
 	return result;
-	//return NULL;
 }
 
 #endif
