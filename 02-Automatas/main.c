@@ -79,14 +79,14 @@ int main(int argc, char* argv[])
 	 * 02-Automatas.exe 012$fc81$3+4*8/2+3-5 pepe$2*4+3/9-2$516731$FBA51$juan$49719
 	 * Cadena octal: 012
 	 * Cadena hexadecimal: fc81
-	 * Resultado de 3+4*8/2+3-5: 17
+	 * Resultado de 3+4*8/2+3-5: 17.000000
 	 * Error lexico en 'pepe'
-	 * Resultado de 2*4+3/9-2: 6
+	 * Resultado de 2*4+3/9-2: 6.333333
 	 * Cadena octal: 516731
 	 * Cadena hexadecimal: FBA51
 	 * Error lexico en 'juan'
 	 * Cadena decimal: 49719
-	 * Cantidad de grupos :7
+	 * Cantidad de grupos: 7
 	 */
 	int cnt_g = 0; //cantidad de grupo
 	//Soporta múltiple argumentos
@@ -130,5 +130,5 @@ int main(int argc, char* argv[])
 			cnt_g++;
 		}
 	}
-	printf("Cantidad de grupos :%i\n", cnt_g);
+	printf("Cantidad de grupos: %i\n", cnt_g);
 }
