@@ -10,6 +10,9 @@ Sumado a todo esto también contamos la cantidad de grupos correctos que existen
 | Martín Gonzalo Larrart | 209.042-9 |
 | Pedro Jose Nicolas Alvarez | 177.232-6 |
 
+## PDF & Caratula
+
+
 # Introducción 
 Para la resolución de operaciones aritméticas en una cadena es necesario pasar la notación `infija` a notación `polaca inversa` la idea se sacó de la guía teórica de `Matemática Discreta Unidad 9 página 129`
 
@@ -115,6 +118,8 @@ typedef struct stack
 }stack_;
 ```
 `int size` nos ayuda a saber el tamaño del contenido.
+
+¿Por qué la función [POP](https://github.com/haytham2597/SSL/blob/master/02-Automatas/modules/stack.h#L21-L29) no retorna valores? Debido a que en el manejo de notación infija a polaca no necesita observar el valor, sino simplemente sacarlo de la pila.
 
 
 ## [Conversión de notación infija a polaca inversa](modules/usual_to_polaca.h)
