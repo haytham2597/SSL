@@ -117,11 +117,20 @@ typedef struct stack
 
 
 ## [Conversión de notación infija a polaca inversa](modules/usual_to_polaca.h)
-<details>
+<details open>
 	<summary>Infija a Polaca inversa</summary>
 
 Para el desarrollo de esta conversión es necesario trabajar con pilas, en el pseudocódigo [^shunting-yard] "replicamos" la funcionalidad en el código con excepción del trabajo de paréntesis ya que el trabajo práctico consiste en trabajarlo sin paréntesis y sin lado de asociatividad (que en ese último caso sería para potencias en vez de propiedades `aritméticas básicas; -,+,/,*`)
 En la generación de notación polaca inversa se utiliza 2 pilas: Las pilas de `variables` y las pilas de `símbolos` que corresponde a los números y a las operaciones aritméticas respectivamente.
+</details>
+
+## [Arbol binario](modules/binarytree.h)
+<details open>
+	<summary>Arbol binario</summary>
+
+Los arboles binarios están compuestos por el nodo padre y sus 2 hijos; Izquierda y Derecha. Cada nodo puede tener subnodo, la misma otro subnodo y así suscesivamente.
+Al tratarse de notación polaca inversa se agregan primero subnodos derecha y luego izquierda.
+
 </details>
 
 [^tolow]: [tolower()](https://www.programiz.com/c-programming/library-function/ctype.h/tolower) convierte los caracteres que tengan mayúsculas en minúsculas 
