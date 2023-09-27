@@ -157,7 +157,7 @@ del código previo [código de C#](https://github.com/karimo94/infix-to-rpn/blob
 <details open>
 	<summary>Arbol binario</summary>
 
-Los arboles binarios están compuestos por el nodo padre y sus 2 hijos; Izquierda y Derecha. Cada nodo puede tener subnodo, la misma otro subnodo y así suscesivamente.
+El arbol binario está compuesto por el nodo padre y sus 2 hijos; Izquierda y Derecha. Cada nodo puede tener subnodo, la misma otro subnodo y así suscesivamente.
 Al tratarse de notación polaca inversa se agregan primero subnodos derecha y luego izquierda, si el subnodo es un operador se va trabajando el mismo hasta que ambos subnodos sean números.<br>
 El armado del arbol binario [^treebinary] se aprendió con este [link](https://www.scaler.com/topics/binary-tree-in-c/), para realizar el cálculo se fue resolviendo de abajo hacia arriba, es decir se "invirtió" [^iteratetree] el árbol.<br>
 
