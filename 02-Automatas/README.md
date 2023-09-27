@@ -38,7 +38,7 @@ Un ejemplo con argumento al ejecutar el programa puede ser:
 	Error lexico en '4++9-3*6' el programa no puede realizar calculos<br>
 	Cantidad de grupos :7<br>
 </blockquote>
-
+<img alt="Ejemplo de ejecucion" src=resources/CompilacionYEjecucion.jpg></img>
 
 ## [Librería comunes](libs/common.h)
 <details open>
