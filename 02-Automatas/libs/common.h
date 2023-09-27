@@ -48,14 +48,6 @@ inline int is_operator(const int ascii)
 	return 0;
 }
 
-inline int get_operator(const int ascii)
-{
-	for (size_t i = 0; i < sizeof(operators) / sizeof(int); i++)
-		if (operators[i] == ascii)
-			return (int)i;
-	return (sizeof(operators) / sizeof(int))+1;
-}
-
 inline enum TipoDeCadena get_type(const char* str)
 {
 	enum TipoDeCadena explicit_type = none;
@@ -94,10 +86,4 @@ inline int is_possible_calculate(const char* eq)
 	const size_t siz =strlen(eq);
 	return !(is_operator(eq[0]) || is_operator(eq[siz - 1]));
 }
-
-inline int ShouldAddParenthesis(char ch)
-{
-	return ch == operators[0] || ch == operators[1];
-}
-
 #endif

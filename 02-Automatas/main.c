@@ -1,7 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdlib.h>
 #include <stdio.h>
-#include <ctype.h>
 #include <string.h> //strtok
 #ifndef AUTOMATAS_LIBS_COMMON_H
 #include "libs/common.h"
@@ -71,43 +70,24 @@ int Calculate(char* equation)
 
 int main(int argc, char* argv[])
 {
-	/*const char* nada = "07ds9";
-	const char* octales = "046247105612";
-	const char* decimales = "012934816";
-	const char* hexadecimal = "48f6a02A2BECfd";
-
-	//Arreglar resultado diferente a lo comentado
-	printf("%i\n", get_type(nada)); //0
-	printf("%i\n", get_type(octales)); //1
-	printf("%i\n", get_type(decimales)); //2
-	printf("%i\n", get_type(hexadecimal)); //3*/
-
-	/*char* po = get_polaca_inversa("3+4*8/2+3-5"); //tiene que dar 17
-    //char* po = get_polaca("2*4+3/9-2"); //Probando tiene que dar 6 ya que 3/9 al pasarlo como entero da 0 pero de double por ej: daria 0.33
-
-	printf("La polaca inversa es: %s \n", po);
-    printf("Resultado: %i\n", Calculate("3+4*8/2+3-5")); //tiene que dar 17
-    printf("Resultado: %i\n", Calculate("2*4+3/9-2")); //Es una prueba tiene que dar 6 ya que 3/9 al pasarlo como entero da 0 pero de double por ej: daria 0.33*/
-	//printf("%i\n", get_type("fc81")); //1
-
 	/*
-	 * 02-Automatas.exe 012$fc81$3+4*8/2+3-5 2*4+3/9-2$pepe$516731$FBA51$mujica$49719
+	 * 02-Automatas.exe 012$fc81$3+4*8/2+3-5 pepe$2*4+3/9-2$516731$FBA51$juan$49719
 	 * Cadena octal: 012
 	 * Cadena hexadecimal: fc81
 	 * Resultado de 3+4*8/2+3-5: 17
-	 * Resultado de 2*4+3/9-2: 6
 	 * Error lexico en 'pepe'
+	 * Resultado de 2*4+3/9-2: 6
 	 * Cadena octal: 516731
 	 * Cadena hexadecimal: FBA51
-	 * Error lexico en 'mujica'
+	 * Error lexico en 'juan'
 	 * Cadena decimal: 49719
+	 * Cantidad de grupos :7
 	 */
-	//Si el primer argumento es -b implica binario las rutas de fichero abren al fichero como binario
-	//const int read_b = (argc > 1) ? argv[1] == "bin" : 0;
-	int cnt_g = 0;
-	for(int i=1;i<argc;i++) //i=1 porque el índice 0 es la ruta de llamada
+	int cnt_g = 0; //cantidad de grupo
+	//Soporta múltiple argumentos
+	for(int i=1;i<argc;i++) //i=1 porque el índice 0 es la ruta de llamada.
 	{
-		char* tok = strtok(argv[i], "$"); //strtok_s para no arrojar warnings, en caso de usar sin _s se necesita definir _CRT_SECURE_NO_WARNINGS
+		char* tok = strtok(argv[i], "$");
 		while (tok != NULL)
 		{
 			const enum TipoDeCadena tipo =get_type(tok);
@@ -126,8 +106,14 @@ int main(int argc, char* argv[])
 			if (tipo == decimal) //Calculate equation, primero valido si tiene operaciones
 			{
 				if (contain_operator(tok)) {
-					
-					printf("Resultado de %s: %i\n", tok, Calculate(tok));
+					if(!is_possible_calculate(tok))
+					{
+						printf("Error lexico en '%s' el programa no puede realizar calculos\n", tok);
+						cnt_g--;
+					}
+					else {
+						printf("Resultado de %s: %i\n", tok, Calculate(tok));
+					}
 				}else
 				{
 					printf("Cadena decimal: %s\n", tok);

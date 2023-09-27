@@ -65,8 +65,8 @@ int build_child(node_* child, size_t idx, const char* partial_equation)
 	{
 		if (child == NULL) {
 			child = create(partial_equation[i]);
-			if (!is_operator(partial_equation[i]))
-				child->result = char_to_int(partial_equation[i]);
+			/*if (!is_operator(partial_equation[i]))
+				child->result = char_to_int(partial_equation[i]);*/
 		}
 		if (child->right != NULL && child->left != NULL) {
 			return i-1;
