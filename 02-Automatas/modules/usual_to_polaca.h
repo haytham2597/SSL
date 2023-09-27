@@ -38,7 +38,7 @@ void update_stack(stack_* var, stack_* sy, char val) //https://github.com/stephe
 		while (sy->size > 0)
 		{
 			const char prev = sy->content[sy->size - 1];
-			if (op_precedence(prev) >= op_precedence(val))
+			if (op_precedence(prev) >= op_precedence(val)) //https://github.com/karimo94/infix-to-rpn/blob/0225cc8b508fb02a8b8b1d87965076c88a174ae8/Program.cs#L38C20-L38C77
 			{
 				push(var, prev);
 				pop(sy, NULL);
