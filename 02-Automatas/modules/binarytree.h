@@ -50,27 +50,15 @@ node_* insert_right(node_* root, char value)
 		root->right->level += root->level;
 	return root->right;
 }
-// Postorder traversal
-void postorderTraversal(node_* root) {
-	if (root == NULL) 
-		return;
-	postorderTraversal(root->left);
-	postorderTraversal(root->right);
-	printf("%c ", root->val);
-}
 
 int build_child(node_* child, size_t idx, const char* partial_equation)
 {
 	for(size_t i=idx;i< strlen(partial_equation);i++)
 	{
-		if (child == NULL) {
+		if (child == NULL)
 			child = create(partial_equation[i]);
-			/*if (!is_operator(partial_equation[i]))
-				child->result = char_to_int(partial_equation[i]);*/
-		}
-		if (child->right != NULL && child->left != NULL) {
+		if (child->right != NULL && child->left != NULL)
 			return i-1;
-		}
 		node_* n = NULL;
 		if (child->right == NULL) {
 			n = insert_right(child, partial_equation[i]);
@@ -93,10 +81,32 @@ node_* empty_left(node_* root)
 			return empty_left(root->left);
 	}
 }
-
-node_* build_tree(const char* equation)
+#ifdef GCC_COMPILER
+//https://www.sololearn.com/Discuss/1350351/i-got-the-error-undefined-reference-to-strrev-how-could-i-remove-this
+char* strrev(char* str)
 {
+	char* p1, * p2;
+
+	if (!str || !*str)
+		return str;
+	for (p1 = str, p2 = str + strlen(str) - 1; p2 > p1; ++p1, --p2)
+	{
+		*p1 ^= *p2;
+		*p2 ^= *p1;
+		*p1 ^= *p2;
+	}
+	return str;
+}
+
+#endif
+node_* build_tree(char* equation)
+{
+#if defined(GCC_COMPILER)
+	//https://www.geeksforgeeks.org/strrev-function-in-c/ el compilador falló por ser de uso sistema posix, así que se tuvo que invocar
+	const char* rev = strrev(equation); 
+#elif defined(_MSC_VER)
 	const char* rev = _strrev(equation); //https://www.geeksforgeeks.org/strrev-function-in-c/ el compilador falló por ser de uso sistema posix, así que se tuvo que invocar _strrev()
+#endif
 	if (!is_operator(rev[0])) {
 		printf("Error o no es notacion polaca inversa o la raiz no es un operador");
 		return NULL;
@@ -151,7 +161,7 @@ void iterate_over_tree(node_* tree)
 		tree->result = operation_node(tree);
 		tree->left = NULL;
 		tree->right = NULL;
-		tree->isOperator = 0;
+		tree->isOperator = 0; //falso
 	}
 }
 

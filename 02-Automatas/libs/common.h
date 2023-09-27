@@ -31,6 +31,7 @@ inline int contain_operator(const char* str)
 	return 0;
 }
 
+//https://github.com/karimo94/infix-to-rpn/blob/0225cc8b508fb02a8b8b1d87965076c88a174ae8/Program.cs#L56C5-L74C10
 inline int op_precedence(char c)
 {
 	if (c == '*' || c == '/')

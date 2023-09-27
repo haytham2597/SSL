@@ -1,4 +1,9 @@
 #define _CRT_SECURE_NO_WARNINGS
+
+#if defined(__GNUC__) || defined(__GNUG__)
+#define GCC_COMPILER
+#endif
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h> //strtok
