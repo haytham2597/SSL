@@ -150,12 +150,14 @@ del código previo [código de C#](https://github.com/karimo94/infix-to-rpn/blob
 
 Los arboles binarios están compuestos por el nodo padre y sus 2 hijos; Izquierda y Derecha. Cada nodo puede tener subnodo, la misma otro subnodo y así suscesivamente.
 Al tratarse de notación polaca inversa se agregan primero subnodos derecha y luego izquierda, si el subnodo es un operador se va trabajando el mismo hasta que ambos subnodos sean números.<br>
-El armado del arbol binario [^treebinary] se aprendió con este [link](https://www.scaler.com/topics/binary-tree-in-c/) para realizar el cálculo se fue resolviendo de abajo hacia arriba, es decir se "invirtió" [^iteratetree] el árbol.<br>
-NOTA: El algoritmo resuelve la ecuación retornando coma flotante de doble precisión (double)**
+El armado del arbol binario [^treebinary] se aprendió con este [link](https://www.scaler.com/topics/binary-tree-in-c/), para realizar el cálculo se fue resolviendo de abajo hacia arriba, es decir se "invirtió" [^iteratetree] el árbol.<br>
+
+| :information_source: El algoritmo resuelve la ecuación retornando coma flotante de doble precisión (double) |
+| --- |
 
 </details>
 
-[^tolow]: [tolower()](https://www.programiz.com/c-programming/library-function/ctype.h/tolower) convierte los caracteres que tengan mayúsculas en minúsculas 
+[^tolow]: [tolower()](https://www.programiz.com/c-programming/library-function/ctype.h/tolower) convierte el carácter mayúscula a minúscula.
 [^ascii]: https://elcodigoascii.com.ar
 [^strlen]: [strlen()](https://learn.microsoft.com/es-es/cpp/c-runtime-library/reference/strlen-wcslen-mbslen-mbslen-l-mbstrlen-mbstrlen-l?view=msvc-170)
 [^shunting-yard]: https://www.andreinc.net/2010/10/05/converting-infix-to-rpn-shunting-yard-algorithm
