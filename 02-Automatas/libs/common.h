@@ -58,7 +58,6 @@ inline int get_operator(const int ascii)
 
 inline enum TipoDeCadena get_type(const char* str)
 {
-	//WARNING: FIX
 	enum TipoDeCadena explicit_type = none;
 	for (size_t i = 0; i < strlen(str); i++)
 	{
@@ -67,11 +66,17 @@ inline enum TipoDeCadena get_type(const char* str)
 			continue;
 		if (low < 48 || low > 102)
 			return none;
-		if (low >= 48 && low <= 55 && (int)explicit_type < octal)
-			explicit_type = octal;
-		if (low >= 55 && low <= 57 && (int)explicit_type < decimal)
-			explicit_type = decimal;
-		else if ((low >= 48 && low <= 57) || (low >= 97 && low <= 102) && (int)explicit_type < hexadecimal) //max
+		if (low >= 48 && low <= 55) {
+			if ((int)explicit_type < octal)
+				explicit_type = octal;
+			if (low > 55 && low <= 57)
+				explicit_type = decimal;
+		}
+		else if (isdigit(low)) {
+			if((int)explicit_type < decimal)
+				explicit_type = decimal;
+		}
+		else
 			explicit_type = hexadecimal;
 	}
 	return explicit_type;
