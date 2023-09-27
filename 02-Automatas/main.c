@@ -22,12 +22,12 @@
 //Maxima línea para ficheros
 #define MAX_BUFFER 65535
 
-int Calculate(char* equation)
+double Calculate(char* equation)
 {
     //stack_ st{.content = {0}, .size = 0};
     char* gpi = get_polaca_inversa(equation);
     node_* tr = build_tree(gpi);
-    int result = calculate_tree(tr);
+	double result = calculate_tree(tr);
     free(tr);
     return result;
 }
@@ -117,7 +117,7 @@ int main(int argc, char* argv[])
 						cnt_g--;
 					}
 					else {
-						printf("Resultado de %s: %i\n", tok, Calculate(tok));
+						printf("Resultado de %s: %f\n", tok, Calculate(tok));
 					}
 				}else
 				{

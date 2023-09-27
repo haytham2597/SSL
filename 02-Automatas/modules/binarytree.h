@@ -14,7 +14,7 @@
 typedef struct node
 {
 	char val;
-	int result;
+	double result;
 	int isOperator, level;
 	struct node* left;
 	struct node* right;
@@ -135,10 +135,10 @@ node_* build_tree(char* equation)
 	return tree;
 }
 
-int operation_node(node_* node_operation)
+double operation_node(node_* node_operation)
 {
-	const int a = node_operation->left->result;
-	const int b = node_operation->right->result;
+	const double a = node_operation->left->result;
+	const double b = node_operation->right->result;
 	if (node_operation->val == '+')
 		return a + b;
 	if (node_operation->val == '-')
@@ -170,7 +170,7 @@ void iterate_over_tree(node_* tree)
 	}
 }
 
-int calculate_tree(node_* tree)
+double calculate_tree(node_* tree)
 {
 	iterate_over_tree(tree);
 	return tree->result; //base
