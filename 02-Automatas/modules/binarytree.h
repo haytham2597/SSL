@@ -27,7 +27,7 @@ node_* create(char value)
 	new_node->val = value;
 	new_node->result = 0;
 	new_node->isOperator = is_op;
-	new_node->result = !(is_op) ? charToInt(value) : 0;
+	new_node->result = !(is_op) ? char_to_int(value) : 0;
 	new_node->level = 0;
 	new_node->left = NULL;
 	new_node->right = NULL;
@@ -66,7 +66,7 @@ int build_child(node_* child, size_t idx, const char* partial_equation)
 		if (child == NULL) {
 			child = create(partial_equation[i]);
 			if (!is_operator(partial_equation[i]))
-				child->result = charToInt(partial_equation[i]);
+				child->result = char_to_int(partial_equation[i]);
 		}
 		if (child->right != NULL && child->left != NULL) {
 			return i-1;
