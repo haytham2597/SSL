@@ -122,7 +122,7 @@ typedef struct stack
 
 Para el desarrollo de esta conversión es necesario trabajar con pilas, en el pseudocódigo [^shunting-yard] "replicamos" la funcionalidad en el código con excepción del trabajo de paréntesis ya que el trabajo práctico consiste en trabajarlo sin paréntesis y sin lado de asociatividad (que en ese último caso sería para potencias en vez de propiedades `aritméticas básicas; -,+,/,*`)
 En la generación de notación polaca inversa se utiliza 2 pilas: Las pilas de `variables` y las pilas de `símbolos` que corresponde a los números y a las operaciones aritméticas respectivamente.
-Las precedencias de operadores se utilizaron del [código de C#:](https://github.com/karimo94/infix-to-rpn/blob/0225cc8b508fb02a8b8b1d87965076c88a174ae8/Program.cs#L56C5-L74C10)
+Las precedencias de operadores se utilizaron del código [^infixtorpncsharp] de [C#:](https://github.com/karimo94/infix-to-rpn/blob/0225cc8b508fb02a8b8b1d87965076c88a174ae8/Program.cs#L56C5-L74C10)
 ```cs
 static int Priority(string c)
 {
@@ -156,3 +156,4 @@ Al tratarse de notación polaca inversa se agregan primero subnodos derecha y lu
 [^ascii]: https://elcodigoascii.com.ar
 [^strlen]: [strlen()](https://learn.microsoft.com/es-es/cpp/c-runtime-library/reference/strlen-wcslen-mbslen-mbslen-l-mbstrlen-mbstrlen-l?view=msvc-170)
 [^shunting-yard]: https://www.andreinc.net/2010/10/05/converting-infix-to-rpn-shunting-yard-algorithm
+[^infixtorpncsharp]: https://github.com/karimo94/infix-to-rpn/blob/master/Program.cs
