@@ -106,12 +106,13 @@ node_* build_tree(char* equation)
 	const char* rev = _strrev(equation); //https://www.geeksforgeeks.org/strrev-function-in-c/ el compilador falló por ser de uso sistema posix, así que se tuvo que invocar _strrev()
 #endif
 	if (!is_operator(rev[0])) {
-		printf("Error o no es notacion polaca inversa o la raiz no es un operador");
+		printf("Error o no es notacion polaca inversa o la raiz no es un operador"); //La raíz siempre tiene que ser operador
 		return NULL;
 	}
 	node_* tree = NULL;
 	int act_idx=0;
-	for(size_t i=0;i<strlen(rev);i++) 
+	size_t len = strlen(rev);
+	for(size_t i=0;i< len;i++)
 	{
 		if (tree == NULL && i == 0) {
 			tree = create(rev[i]);
@@ -122,12 +123,12 @@ node_* build_tree(char* equation)
 			act = insert_right(tree, rev[i]);
 		else if(tree->left == NULL)
 			act = insert_left(tree, rev[i]);
-		if (is_operator(rev[i]))//necesita agregar llenar hojas.
+		if (is_operator(rev[i])) //necesita agregar llenar hojas.
 			act_idx = build_child(act, act_idx != 0 ? act_idx : i + 1, rev);
-		if(act_idx != 0 && act_idx != strlen(rev))
+		if(act_idx != 0 && act_idx != len)
 		{
-			node_* emp = empty_left(tree);
-			if(emp != NULL)
+			node_* emp = empty_left(tree); //busca el 1er vacío del subnodo izquierdo ya que se completaron derechos
+			if(emp != NULL) //Lo encontró, lo trabajamos con ese subnodo a partir del último punto de ecuación que se pudo trabajar.
 				act_idx = build_child(emp, act_idx+1, rev);
 		}
 	}
@@ -144,8 +145,14 @@ int operation_node(node_* node_operation)
 		return a - b;
 	if (node_operation->val == '*')
 		return  a * b;
-	if (node_operation->val == '/')
+	if (node_operation->val == '/') {
+		if(b == 0)
+		{
+			printf("¡ERROR DIVISION DE CERO!");
+			exit(EXIT_FAILURE);
+		}
 		return a / b;
+	}
 }
 
 void iterate_over_tree(node_* tree)
