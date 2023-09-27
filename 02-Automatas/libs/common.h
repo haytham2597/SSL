@@ -3,10 +3,7 @@
 #ifndef AUTOMATAS_LIBS_COMMON_H
 #define AUTOMATAS_LIBS_COMMON_H
 
-#include <stdlib.h>
-#include <stdio.h>
 #include <ctype.h>
-#include <string.h> //strtok
 
 //Constants
 //*, /, +, -  respectivamente //https://elcodigoascii.com.ar/ ordenado por precedencia de operadores
@@ -23,7 +20,7 @@ int op_precedence(char c);
 enum TipoDeCadena get_type(const char* str);
 char* add_parenthesis(const char* eq);
 
-inline int contain_operator(const char* str)
+int contain_operator(const char* str)
 {
 	for (size_t i = 0; i < strlen(str); i++) //https://learn.microsoft.com/es-es/cpp/c-runtime-library/reference/strlen-wcslen-mbslen-mbslen-l-mbstrlen-mbstrlen-l?view=msvc-170
 		if (is_operator(str[i]))
@@ -32,7 +29,7 @@ inline int contain_operator(const char* str)
 }
 
 //https://github.com/karimo94/infix-to-rpn/blob/0225cc8b508fb02a8b8b1d87965076c88a174ae8/Program.cs#L56C5-L74C10
-inline int op_precedence(char c)
+int op_precedence(char c)
 {
 	if (c == '*' || c == '/')
 		return 2;
@@ -41,7 +38,7 @@ inline int op_precedence(char c)
 	return 0;
 }
 
-inline int is_operator(const int ascii)
+int is_operator(const int ascii)
 {
 	for (size_t i = 0; i < sizeof(operators)/sizeof(int); i++) //https://stackoverflow.com/questions/1597830/iterate-through-a-c-array
 		if (operators[i] == ascii)
@@ -49,7 +46,7 @@ inline int is_operator(const int ascii)
 	return 0;
 }
 
-inline enum TipoDeCadena get_type(const char* str)
+enum TipoDeCadena get_type(const char* str)
 {
 	enum TipoDeCadena explicit_type = none;
 	for (size_t i = 0; i < strlen(str); i++)
@@ -75,16 +72,31 @@ inline enum TipoDeCadena get_type(const char* str)
 	return explicit_type;
 }
 
-inline int char_to_int(char ch)
+int char_to_int(char ch)
 {
 	if(isdigit(ch))
 		return (int)ch - 48;
 	return -1;
 }
 
-inline int is_possible_calculate(const char* eq)
+
+/**
+ * \brief 
+ * \param eq Ecuacion
+ * \return verdadero si el programa puede resolver, caso contrario falso. 
+ */
+int is_possible_calculate(const char* eq)
 {
 	const size_t siz =strlen(eq);
-	return !(is_operator(eq[0]) || is_operator(eq[siz - 1]));
+	if (is_operator(eq[0]) || is_operator(eq[siz - 1])) //comprueba si el primer char o el último es operador
+		return 0;
+	for (size_t i = 0; i < siz; i++)
+	{
+		if (i + 1 >= siz) //ultimo
+			break;
+		if (is_operator(eq[i]) && is_operator(eq[i + 1]))
+			return 0;
+	}
+	return 1;
 }
 #endif

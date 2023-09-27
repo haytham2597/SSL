@@ -18,7 +18,7 @@ typedef struct stack
 int pop(stack_* st, int* get_val);
 void push(stack_* st, int value);
 
-inline int pop(stack_* st, int* get_val)
+int pop(stack_* st, int* get_val)
 {
 	if (st->size == 0) //?? Si la pila es tamaño 0, para que quiere hacer pop... significa que está vacío
 		return 0; //Está vacío, no puedo seguir haciendo pop
@@ -28,7 +28,7 @@ inline int pop(stack_* st, int* get_val)
 	return 1; //Puedo continuar haciendo pop
 }
 
-inline void push(stack_* st, int value)
+void push(stack_* st, int value)
 {
 	if (st->size == MAX_STACK) //En todo caso debería imprimir error
 		return;

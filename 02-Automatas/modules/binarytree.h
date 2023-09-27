@@ -86,7 +86,6 @@ node_* empty_left(node_* root)
 char* strrev(char* str)
 {
 	char* p1, * p2;
-
 	if (!str || !*str)
 		return str;
 	for (p1 = str, p2 = str + strlen(str) - 1; p2 > p1; ++p1, --p2)
@@ -102,8 +101,7 @@ char* strrev(char* str)
 node_* build_tree(char* equation)
 {
 #if defined(GCC_COMPILER)
-	//https://www.geeksforgeeks.org/strrev-function-in-c/ el compilador falló por ser de uso sistema posix, así que se tuvo que invocar
-	const char* rev = strrev(equation); 
+	const char* rev = strrev(equation);
 #elif defined(_MSC_VER)
 	const char* rev = _strrev(equation); //https://www.geeksforgeeks.org/strrev-function-in-c/ el compilador falló por ser de uso sistema posix, así que se tuvo que invocar _strrev()
 #endif
