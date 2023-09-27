@@ -166,7 +166,7 @@ El armado del arbol binario [^treebinary] se aprendió con este [link](https://w
 | :information_source: El algoritmo resuelve la ecuación retornando coma flotante de doble precisión (double) |
 | --- |
 
-Autómata de la ecuación del ejemplo: 3+4*8/2+3-5
+Arbol binario de la ecuación del ejemplo: 3+4*8/2+3-5
 ```mermaid
 flowchart TD
     	A[-] --> B[+];
