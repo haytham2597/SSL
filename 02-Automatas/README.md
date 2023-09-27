@@ -1,5 +1,5 @@
 # "Automatas" en C
-Trabajo prático N°2, en este TP aprendemos a comprobar el tipo de cadena; nada, octal, decimal o hexadecimal. En caso de ser decimales y tener operaciones aritméticas realizamos cálculo de la misma y recibimos su resultado.
+Trabajo prático N°2, en este TP aprendemos a comprobar el tipo de cadena; `nada`, `octal`, `decimal` o `hexadecimal`. En caso de ser decimales y tener operaciones aritméticas realizamos cálculo de la misma y recibimos su resultado.
 Sumado a todo esto también contamos la cantidad de grupos correctos que existen.
 
 ## Integrantes
@@ -15,29 +15,30 @@ Para la resolución de operaciones aritméticas en una cadena es necesario pasar
 
 # Compilación
 En la ruta absoluta del directorio `02-Automatas` invocar con CMD `gcc main.c -o main.exe --std=c11` 
-Debido a que GCC no admite la función `_strrev()` para revertir el orden de la cadena (necesaria para crear arbol binario) se creo la susodicha con el marco definido para compilar en GCC. El MSVC ya viene con esta función de librería
+Debido a que GCC no admite la función `_strrev()` [^strrev] para revertir el orden de la cadena (necesaria para crear arbol binario) se creo la susodicha con el macros definido para compilar en GCC. El MSVC ya cuenta con esta función de librería
 
 # Ejemplo de ejecución del programa
 Un ejemplo con argumento al ejecutar el programa puede ser:
 
-`main.exe 012$51tyia6$fc81$3+4*8/2+3-5 pepe$2*4+3/9-2$516731$FBA51$juan$49719` cuyo resultado:
+`main.exe 012$51tyia6$fc81$3+4*8/2+3-5 pepe$2*4+3/9-2$516731$FBA51$juan$49719$4++9-3*6` cuyo resultado:
 <blockquote>
 	Cadena octal: 012<br>
 	Error lexico en '51tyia6'<br>
 	Cadena hexadecimal: fc81<br>
-	Resultado de 3+4*8/2+3-5: 17<br>
+	Resultado de 3+4*8/2+3-5: 17.000000<br> 
 	Error lexico en 'pepe'<br>
-	Resultado de 2*4+3/9-2: 6<br>
+	Resultado de 2*4+3/9-2: 6.333333<br>
 	Cadena octal: 516731<br>
 	Cadena hexadecimal: FBA51<br>
 	Error lexico en 'juan'<br>
 	Cadena decimal: 49719<br>
+	Error lexico en '4++9-3*6' el programa no puede realizar calculos<br>
 	Cantidad de grupos :7<br>
 </blockquote>
 
 
 ## [Librería comunes](libs/common.h)
-<details>
+<details open>
   <summary>Funciones esenciales</summary>
 	
 Instanciamos un arreglo de 4 operadores, los números provienen de la tabla ASCII [^ascii] donde cada char pertenece un entero sin signar de 8 bit (0-255)
@@ -58,8 +59,8 @@ char* add_parenthesis(const char* eq);
 ```
 
 ## Explicación de algunas funciones
-`strlen(str)` [^strlen]
-Primero pasamos a `tolower(str[i]);` [^tolow] para obtener los caracteres en minúsculas, de esta forma tenemos más control. Como se puede ver en la tabla de [^ascii] 48 para abajo se encuentran caracteres que no nos interesa comprobar lo mismo para el 102 entonces si algún carácter posee entre [0-47] y [103-255] (ya que el 102 es `f` y la misma pertenece a los caracteres hexadecimales) retornamos none mejor dicho sería un error léxico. Exceptuando si se tratara de operadores que se encuentra en 42, 43, 45 y 47.
+`strlen(str)` [^strlen]<br>
+Primero pasamos a `tolower(str[i]);` [^tolow] para obtener los caracteres en minúsculas, de esta forma tenemos más control. Como se puede ver en la tabla de [^ascii] los números inferiores a 48 se encuentran caracteres que no nos interesa comprobar lo mismo para superiores a 102 entonces si algún carácter posee entre [0-47] y [103-255] (ya que el 102 es `f` y la misma pertenece a los caracteres hexadecimales) retornamos none mejor dicho sería un error léxico. Exceptuando si se tratara de operadores que se encuentra en 42, 43, 45 y 47.
 Los que cumplen con el criterio se va asignado el tipo de cadena que es; octal, decimal, etc.
 ```c
 inline enum TipoDeCadena get_type(const char* str)
@@ -148,7 +149,9 @@ del código previo [código de C#](https://github.com/karimo94/infix-to-rpn/blob
 	<summary>Arbol binario</summary>
 
 Los arboles binarios están compuestos por el nodo padre y sus 2 hijos; Izquierda y Derecha. Cada nodo puede tener subnodo, la misma otro subnodo y así suscesivamente.
-Al tratarse de notación polaca inversa se agregan primero subnodos derecha y luego izquierda.
+Al tratarse de notación polaca inversa se agregan primero subnodos derecha y luego izquierda, si el subnodo es un operador se va trabajando el mismo hasta que ambos subnodos sean números.<br>
+El armado del arbol binario [^treebinary] se aprendió con este [link](https://www.scaler.com/topics/binary-tree-in-c/) para realizar el cálculo se fue resolviendo de abajo hacia arriba, es decir se "invirtió" [^iteratetree] el árbol.<br>
+NOTA: El algoritmo resuelve la ecuación retornando coma flotante de doble precisión (double)**
 
 </details>
 
@@ -157,3 +160,6 @@ Al tratarse de notación polaca inversa se agregan primero subnodos derecha y lu
 [^strlen]: [strlen()](https://learn.microsoft.com/es-es/cpp/c-runtime-library/reference/strlen-wcslen-mbslen-mbslen-l-mbstrlen-mbstrlen-l?view=msvc-170)
 [^shunting-yard]: https://www.andreinc.net/2010/10/05/converting-infix-to-rpn-shunting-yard-algorithm
 [^infixtorpncsharp]: https://github.com/karimo94/infix-to-rpn/blob/master/Program.cs
+[^strrev]: [Funcion strrev()](https://www.sololearn.com/Discuss/1350351/i-got-the-error-undefined-reference-to-strrev-how-could-i-remove-this), https://github.com/haytham2597/SSL/blob/master/02-Automatas/modules/binarytree.h#L86-L98
+[^treebinary]: Observe que en una gran parte del código se realizó sin una copia exacta del link. Se tuvo que rediseñar todo el algoritmo para cumplir el propósito del trabajo práctico.
+[^iteratetree]: Tenga en cuenta que no se remodificó el árbol, simplemente se invocó llamadas recursivas sobre subnodos hasta comprobar que tanto izquierda como derecha no sean nulos y tampoco operadores. Para ir resolviendo hasta llegar a la raíz.
