@@ -14,6 +14,8 @@ Sumado a todo esto también contamos la cantidad de grupos correctos que existen
 
 
 # Introducción 
+Verificamos todas las entradas de cadena separados con el símbolo `$`, si son decimales con operadores verificamos si podemos resolver 
+la ecuación, en caso de poder resolverlo el programa lo resuelve finalmente presentamos la cantidad de grupos.
 Para la resolución de operaciones aritméticas en una cadena es necesario pasar la notación `infija` a notación `polaca inversa` la idea se sacó de la guía teórica de `Matemática Discreta Unidad 9 página 129`
 
 # Compilación
