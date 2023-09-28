@@ -25,20 +25,24 @@ Debido a que GCC no admite la función `_strrev()` [^strrev] para revertir el or
 # Ejemplo de ejecución del programa
 Un ejemplo con argumento al ejecutar el programa puede ser:
 
-`main.exe 012$51tyia6$fc81$3+4*8/2+3-5 pepe$2*4+3/9-2$516731$FBA51$juan$49719$4++9-3*6` cuyo resultado:
+`main.exe 012$51tyia6$fc81$3+4*8/2+3-5 pepe$2*4+3/9-2$516731$0xFBA51$juan$49719$4++9-3*6$-971` cuyo resultado:
 <blockquote>
-	Cadena octal: 012<br>
-	Error lexico en '51tyia6'<br>
-	Cadena hexadecimal: fc81<br>
-	Resultado de 3+4*8/2+3-5: 17.000000<br> 
-	Error lexico en 'pepe'<br>
-	Resultado de 2*4+3/9-2: 6.333333<br>
-	Cadena octal: 516731<br>
-	Cadena hexadecimal: FBA51<br>
-	Error lexico en 'juan'<br>
-	Cadena decimal: 49719<br>
-	Error lexico en '4++9-3*6' el programa no puede realizar calculos<br>
-	Cantidad de grupos :7<br>
+	 Cadena: octal de '012'<br>
+	 Error lexico en '51tyia6'<br>
+	 Error lexico en 'fc81'<br>
+	 Resultado de 3+4*8/2+3-5: 17.000000<br>
+	 Error lexico en 'pepe'<br>
+	 Resultado de 2*4+3/9-2: 6.333333<br>
+	 Cadena: octal de '516731'<br>
+	 Cadena: hexadecimal de '0xFBA51'<br>
+	 Error lexico en 'juan'<br>
+	 Cadena: decimal de '49719'<br>
+	 Error lexico en '4++9-3*6' el programa no puede realizar calculos<br>
+	 Cadena: decimal de '-971'<br>
+	 Cantidad de grupo error lexico: 5<br>
+	 Cantidad de grupo octal: 2<br>
+	 Cantidad de grupo decimal: 2<br>
+	 Cantidad de grupo hexadecimal: 1<br>
 </blockquote>
 <img alt="Ejemplo de ejecucion" src=resources/CompilacionYEjecucion.jpg></img>
 
