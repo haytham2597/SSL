@@ -19,6 +19,11 @@
 #include "modules/usual_to_polaca.h"
 #endif
 
+#ifndef AUTOMATAS_MODULES_AUTOMATA_H
+#include "modules/automata.h"
+#endif
+
+
 //Maxima línea para ficheros
 #define MAX_BUFFER 65535
 
@@ -26,7 +31,7 @@ double Calculate(char* equation)
 {
     //stack_ st{.content = {0}, .size = 0};
     char* gpi = get_polaca_inversa(equation);
-    node_* tr = build_tree(gpi);
+    treenode_* tr = build_tree(gpi);
 	double result = calculate_tree(tr);
     free(tr);
     return result;
@@ -87,7 +92,18 @@ int main(int argc, char* argv[])
 	 * Error lexico en 'juan'
 	 * Cadena decimal: 49719
 	 * Cantidad de grupos: 7
-	 */
+	*/
+
+	char str[] = "pepe$2*4+3/9-2$516731$FBA51$juan$49719$4++9-3*6";
+	char* toke = strtok(str, "$");
+	while (toke != NULL)
+	{
+		printf("Verificando: %s\n", toke);
+		enum TipoDeCadena tipo = verify_string(toke);
+		printf("TIpo: %i\n", tipo);
+		toke = strtok(NULL, "$");
+	}
+	system("PAUSE");
 	int cnt_g = 0; //cantidad de grupo
 	//Soporta múltiple argumentos
 	for(int i=1;i<argc;i++) //i=1 porque el índice 0 es la ruta de llamada.

@@ -49,9 +49,12 @@ int is_operator(const int ascii)
 enum TipoDeCadena get_type(const char* str)
 {
 	enum TipoDeCadena explicit_type = none;
-	for (size_t i = 0; i < strlen(str); i++)
+	if (str[0] == '0' && tolower(str[1]) == 'x')
+		explicit_type= hexadecimal;
+	for (size_t i = explicit_type == hexadecimal ? 2 : 0; i < strlen(str); i++)
 	{
 		const int low = tolower(str[i]); //https://www.programiz.com/c-programming/library-function/ctype.h/tolower
+		
 		if (is_operator(low)) //Excluir los que contienen operaciones, ya que solo validamos cadena aunque la cadena tenga signo con decimal, retorna decimal igual.
 			continue;
 		if (low < 48 || low > 102)

@@ -97,39 +97,22 @@ void sacarTipo(char *str, int *tipoPalabra){
 }
 
 int columnaOctal(int c){
-    switch(c)
-    {
-        case '0':
-            return 0;
-        case '1':
-            return 1;
-        case '2':
-            return 2;
-        case '3':
-            return 3;
-        case '4':
-            return 4;
-        case '5':
-            return 5;
-        case '6':
-            return 6;
-        case '7':
-            return 7;    
-        default:
-            return 8;
-    }
+    if (c >= 8)
+        return 8;
+    return c;
 }
 
 int verificaOctal(char *str){
-    const int ttOctal[4][9] = {{1,3,3,3,3,3,3,3,3},
-                               {3,2,2,2,2,2,2,2,3},
-                               {2,2,2,2,2,2,2,2,3},
-                               {3,3,3,3,3,3,3,3,3},
-                              };
+    const int ttOctal[4][9] = {
+        {1,3,3,3,3,3,3,3,3},
+        {3,2,2,2,2,2,2,2,3},
+        {2,2,2,2,2,2,2,2,3},
+        {3,3,3,3,3,3,3,3,3},
+    };
     int estado = 0;
     int i = 0;
     int c = str[0];
-
+    
     while(c != '\0')
     {
         estado = ttOctal[estado][columnaOctal(c)];
@@ -138,14 +121,12 @@ int verificaOctal(char *str){
     }
 
     if(estado==2)//el de finalizacion en nuestro caso
-    {
         return 1;
-    }
-
     return 0;
 }
 
 int columnaDecimal(int c){
+
     switch(c)
     {
         case '+':
@@ -177,7 +158,8 @@ int columnaDecimal(int c){
     }
 }
 
-int verificaDecimal(char *str){
+int verificaDecimal(char *str)
+{
     const int ttDecimal[4][13] = {{1,1,3,2,2,2,2,2,2,2,2,2,3},
                                   {3,3,3,2,2,2,2,2,2,2,2,2,3},
                                   {3,3,2,2,2,2,2,2,2,2,2,2,3},
@@ -304,7 +286,7 @@ void verificarCadenas(struct Nodo *cadenas, int *octales,int *decimales, int *he
             tipoPalabra = 0;
         }
         else{
-        printf("LA CADENA %i TIENE ERROR LEXICO \n",i);
+            printf("LA CADENA %i TIENE ERROR LEXICO \n",i);
         }
         i++;
     }

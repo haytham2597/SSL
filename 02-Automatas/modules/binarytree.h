@@ -11,18 +11,18 @@
 //Implementar arbol binario para operar las cuentas https://www.scaler.com/topics/binary-tree-in-c/
 //TODO: Mejorar este algoritmo
 
-typedef struct node
+typedef struct treenode
 {
 	char val;
 	double result;
 	int isOperator, level;
-	struct node* left;
-	struct node* right;
-}node_;
+	struct treenode* left;
+	struct treenode* right;
+}treenode_;
 
-node_* create(char value)
+treenode_* create(char value)
 {
-	node_* new_node = malloc(sizeof(node_));
+	treenode_* new_node = malloc(sizeof(treenode_));
 	const int is_op = is_operator(value);
 	new_node->val = value;
 	new_node->result = 0;
@@ -34,7 +34,7 @@ node_* create(char value)
 	return new_node;
 }
 
-node_* insert_left(node_* root, char value)
+treenode_* insert_left(treenode_* root, char value)
 {
 	
 	root->left = create(value);
@@ -42,7 +42,7 @@ node_* insert_left(node_* root, char value)
 		root->left->level += root->level;
 	return root->left;
 }
-node_* insert_right(node_* root, char value)
+treenode_* insert_right(treenode_* root, char value)
 {
 	
 	root->right = create(value);
@@ -51,7 +51,7 @@ node_* insert_right(node_* root, char value)
 	return root->right;
 }
 
-int build_child(node_* child, size_t idx, const char* partial_equation)
+int build_child(treenode_* child, size_t idx, const char* partial_equation)
 {
 	for(size_t i=idx;i< strlen(partial_equation);i++)
 	{
@@ -59,7 +59,7 @@ int build_child(node_* child, size_t idx, const char* partial_equation)
 			child = create(partial_equation[i]);
 		if (child->right != NULL && child->left != NULL)
 			return i-1;
-		node_* n = NULL;
+		treenode_* n = NULL;
 		if (child->right == NULL) {
 			n = insert_right(child, partial_equation[i]);
 		}
@@ -71,7 +71,7 @@ int build_child(node_* child, size_t idx, const char* partial_equation)
 	}
 }
 
-node_* empty_left(node_* root)
+treenode_* empty_left(treenode_* root)
 {
 	for(;;)
 	{
@@ -98,7 +98,7 @@ char* strrev(char* str)
 }
 
 #endif
-node_* build_tree(char* equation)
+treenode_* build_tree(char* equation)
 {
 #if defined(GCC_COMPILER)
 	const char* rev = strrev(equation);
@@ -109,7 +109,7 @@ node_* build_tree(char* equation)
 		printf("Error o no es notacion polaca inversa o la raiz no es un operador"); //La raíz siempre tiene que ser operador
 		return NULL;
 	}
-	node_* tree = NULL;
+	treenode_* tree = NULL;
 	int act_idx=0;
 	size_t len = strlen(rev);
 	for(size_t i=0;i< len;i++)
@@ -118,7 +118,7 @@ node_* build_tree(char* equation)
 			tree = create(rev[i]);
 			continue;
 		}
-		node_* act = NULL;
+		treenode_* act = NULL;
 		if (tree->right == NULL)
 			act = insert_right(tree, rev[i]);
 		else if(tree->left == NULL)
@@ -127,7 +127,7 @@ node_* build_tree(char* equation)
 			act_idx = build_child(act, act_idx != 0 ? act_idx : i + 1, rev);
 		if(act_idx != 0 && act_idx != len)
 		{
-			node_* emp = empty_left(tree); //busca el 1er vacío del subnodo izquierdo ya que se completaron derechos
+			treenode_* emp = empty_left(tree); //busca el 1er vacío del subnodo izquierdo ya que se completaron derechos
 			if(emp != NULL) //Lo encontró, lo trabajamos con ese subnodo a partir del último punto de ecuación que se pudo trabajar.
 				act_idx = build_child(emp, act_idx+1, rev);
 		}
@@ -135,7 +135,7 @@ node_* build_tree(char* equation)
 	return tree;
 }
 
-double operation_node(node_* node_operation)
+double operation_node(treenode_* node_operation)
 {
 	const double a = node_operation->left->result;
 	const double b = node_operation->right->result;
@@ -155,7 +155,7 @@ double operation_node(node_* node_operation)
 	}
 }
 
-void iterate_over_tree(node_* tree)
+void iterate_over_tree(treenode_* tree)
 {
 	if (tree->left->isOperator)
 		iterate_over_tree(tree->left);
@@ -170,7 +170,7 @@ void iterate_over_tree(node_* tree)
 	}
 }
 
-double calculate_tree(node_* tree)
+double calculate_tree(treenode_* tree)
 {
 	iterate_over_tree(tree);
 	return tree->result; //base

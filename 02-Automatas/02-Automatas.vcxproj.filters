@@ -32,5 +32,8 @@
     <ClInclude Include="modules\usual_to_polaca.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="modules\automata.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
