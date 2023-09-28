@@ -107,13 +107,17 @@ char* add_parenthesis(const char* eq);
 `strlen(str)` [^strlen]<br>
 Primero pasamos a `tolower(str[i]);` [^tolow] para obtener los caracteres en minúsculas, de esta forma tenemos más control. Como se puede ver en la tabla de [^ascii] los números inferiores a 48 se encuentran caracteres que no nos interesa comprobar lo mismo para superiores a 102 entonces si algún carácter posee entre [0-47] y [103-255] (ya que el 102 es `f` y la misma pertenece a los caracteres hexadecimales) retornamos none mejor dicho sería un error léxico. Exceptuando si se tratara de operadores que se encuentra en 42, 43, 45 y 47.
 Los que cumplen con el criterio se va asignado el tipo de cadena que es; octal, decimal, etc.
+
 ```c
-inline enum TipoDeCadena get_type(const char* str)
+enum TipoDeCadena get_type(const char* str)
 {
 	enum TipoDeCadena explicit_type = none;
-	for (size_t i = 0; i < strlen(str); i++)
+	if (str[0] == '0' && tolower(str[1]) == 'x')
+		explicit_type= hexadecimal;
+	for (size_t i = explicit_type == hexadecimal ? 2 : 0; i < strlen(str); i++)
 	{
-		const int low = tolower(str[i]);
+		const int low = tolower(str[i]); //https://www.programiz.com/c-programming/library-function/ctype.h/tolower
+		
 		if (is_operator(low)) //Excluir los que contienen operaciones, ya que solo validamos cadena aunque la cadena tenga signo con decimal, retorna decimal igual.
 			continue;
 		if (low < 48 || low > 102)
@@ -131,12 +135,15 @@ inline enum TipoDeCadena get_type(const char* str)
 		else
 			explicit_type = hexadecimal;
 	}
+	if (explicit_type == hexadecimal && str[0] != '0' && tolower(str[1]) != 'x')
+		return none;
 	return explicit_type;
 }
 ```
 
 La otra función esencial que forma fuertemente parte del ejercicio es la conversión del `char a enteros`
 Observando [^ascii] podemos ver que si el char es un decimal (entre 0 y 9) el char forma parte entre 48 y 57 de la tabla ASCII substraemos por el mínimo (48) para representar el entero
+
 ```c
 inline int char_to_int(char ch)
 {
