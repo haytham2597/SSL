@@ -37,47 +37,6 @@ double Calculate(char* equation)
     return result;
 }
 
-/*int open_file(const char* path)
-{
-	//Reutilizando código de 00-CHelloworld
-	FILE* fptr = fopen(path,"r"); //r read abrir como lectura
-	if (fptr == NULL) //O no puede abrir o no es un fichero
-	{
-		printf("Error con la cadena %s el programa no puede abrir como lectura o no es una ruta de fichero\n", path);
-		return 0;
-	}
-	char buffer[MAX_BUFFER];
-	while (fgets(buffer, MAX_BUFFER, fptr)) {
-		size_t l = strlen(buffer);
-		char* tok = (char*)malloc(l);
-		memcpy(tok, buffer, l);
-		//char* tok = &buffer[0];
-		//printf("Strlen: %i", strlen(buffer));
-		const enum TipoDeCadena tipo = get_type(tok);
-		if (tipo == none)
-			printf("Error lexico en '%s'\n", tok); //Si contiene parentesis va a arrojar error lexico tamb
-		if (tipo == octal)
-			printf("Cadena octal: %s\n", tok);
-		if (tipo == decimal) //Calculate equation, primero valido si tiene operaciones
-		{
-			if (contain_operator(buffer)) {
-
-				printf("Resultado de %s: %i\n", tok, Calculate(tok));
-			}
-			else
-			{
-				printf("Cadena decimal: %s\n", tok);
-			}
-		}
-		if (tipo == hexadecimal)
-			printf("Cadena hexadecimal: %s\n", tok);
-		//buffer = strtok(NULL, "$");
-		//printf("%s", buffer);
-	}
-	fclose(fptr);
-	return 1;
-}*/
-
 int main(int argc, char* argv[])
 {
 	/*
