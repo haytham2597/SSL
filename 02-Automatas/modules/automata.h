@@ -67,6 +67,11 @@ int col_hex(char c)
     return sizeof(hex);
 }
 
+/**
+ * \brief Verifica la cadena con Automata
+ * \param str cadena a verificar
+ * \return tipo de cadena
+ */
 enum TipoDeCadena verify_string(char* str)
 {
     const enum TipoDeCadena type = get_type(str);
@@ -92,7 +97,7 @@ enum TipoDeCadena verify_string(char* str)
     if (type == octal || type == decimal)
         if(state == 2 || state == 3)
 			return type;
-    if(type == decimal || type== hexadecimal)
+    if(type== hexadecimal)
         if (state == 3)
             return type;
     return none;

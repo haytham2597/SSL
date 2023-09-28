@@ -57,6 +57,8 @@ int main(int argc, char* argv[])
 	 * Cantidad de grupo decimal: 4
 	 * Cantidad de grupo hexadecimal: 1
 	*/
+	/*char* ca = "err";
+	printf("%s", &ca[1]);*/
 	char name_groups[][20] = {"error lexico", "octal", "decimal", "hexadecimal"};
 	int groups[] = { 0,0,0,0 };
 	//Soporta múltiple argumentos
@@ -67,16 +69,30 @@ int main(int argc, char* argv[])
 		{
 			if (get_type(tok) == decimal && contain_operator(tok))
 			{
-				if (!is_possible_calculate(tok))
+				if (!is_possible_calculate(tok) && contain_operator(&tok[1]))  //&tok[1] offset al primer caracter
 				{
 					//TODO: Comprobar que sólo hay un operador en el 1er caracter y no en el resto. Si es el caso entonces es decimal
+					groups[none]++;
 					printf("Error lexico en '%s' el programa no puede realizar calculos\n", tok);
 				}
-				else {
+				else if(contain_operator(&tok[1])) {
 					printf("Resultado de %s: %f\n", tok, Calculate(tok));
 				}
+				else
+				{
+					//Solo tiene operador en el 1er caracter y teoricamente es un + o - queda comprobar con automata
+					if(tok[0] == '+' ^ tok[0] == '-' && verify_string(tok) == decimal) //https://www.wolframalpha.com/input?i=truth+table+p+xor+q+and+n&lang=es
+					{
+						groups[decimal]++;
+						printf("Cadena: %s de '%s'\n", name_groups[decimal], tok);
+					}
+					else
+					{
+						groups[none]++;
+						printf("Error lexico en '%s'\n", tok);
+					}
+				}
 				tok = strtok(NULL, "$");
-				groups[2]++;
 				continue;
 			}
 			const enum TipoDeCadena tipo = verify_string(tok);
