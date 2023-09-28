@@ -183,15 +183,8 @@ flowchart TD
 
 ¿Cómo resuelve el algoritmo en el árbol?
 Se va reduciendo desde abajo hacia arriba
-<table>
-<tr>
-<td>Paso 1</td>
-<td>Paso 2</td>
-<td>Paso 3</td>
-<td>Paso Final</td>
-</tr>
-<tr>
-<td>
+
+- Paso 1
 
 ```mermaid
 flowchart TD
@@ -205,9 +198,8 @@ flowchart TD
 	H --- L((2));
 ```
 
-</td>
-<td>
-	
+- Paso 2
+
 ```mermaid
 	flowchart TD
 	A(("-")) --- B(("+"));
@@ -218,9 +210,8 @@ flowchart TD
 	D --- H((16));
 ```
 
-</td>
-<td>
-	
+- Paso 3
+
 ```mermaid
 	flowchart TD
 	A(("-")) --- B(("+"));
@@ -229,19 +220,16 @@ flowchart TD
   	B --- E((3));
 ```
 
-</td>
-<td>
-	
+- Paso Final
+
 ```mermaid
 	flowchart TD
 	A(("-")) --- B((22));
 	A --- C((5));
 ```
 
-</td>
-</tr>
-
-</table>
+Finalmente operamos 22 - 5 que es igual a 17<br>
+**Resultado de la ecuación: 17**
 </details>
 
 [^tolow]: [tolower()](https://www.programiz.com/c-programming/library-function/ctype.h/tolower) convierte el carácter mayúscula a minúscula.
