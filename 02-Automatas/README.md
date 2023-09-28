@@ -17,6 +17,7 @@ Sumado a todo esto también contamos la cantidad de grupos correctos que existen
 Verificamos todas las entradas de cadena separados con el símbolo `$`, si son decimales con operadores verificamos si podemos resolver 
 la ecuación, en caso de poder resolverlo el programa lo resuelve finalmente presentamos la cantidad de grupos.
 Para la resolución de operaciones aritméticas en una cadena es necesario pasar la notación `infija` a notación `polaca inversa` la idea se sacó de la guía teórica de `Matemática Discreta Unidad 9 página 129`
+En caso de ser decimales pero tener en el 1er caracter sólo el `'-'` o el `'+'` verificamos la cadena con automata y en caso de ser octal o hexadecimal también verificamos la misma con automata. 
 
 # Compilación
 En la ruta absoluta del directorio `02-Automatas` invocar con CMD `gcc main.c -o main.exe --std=c11` 
