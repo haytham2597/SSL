@@ -48,7 +48,7 @@ Un ejemplo con argumento al ejecutar el programa puede ser:
 <img alt="Ejemplo de ejecucion" src=resources/CompilacionYEjecucion.jpg></img>
 
 ## [Automatas](modules/automata.h)
-<details open>
+
 Presentamos los autómatas; Octal, Decimal y Hexadecimal
 ### Automata octal
 
@@ -81,8 +81,6 @@ flowchart LR;
     D -- "1,2,3,4,5,6,7,8,9,A,B,C,D,E,F" --> D;
     C -- "0" --> E(("4+"));
 ```
-
-</details>
 
 ## [Librería comunes](libs/common.h)
 <details open>
