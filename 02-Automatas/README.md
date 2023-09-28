@@ -172,14 +172,76 @@ flowchart TD
     	A(("-")) --- B(("+"));
 	A --- C((5));
 	B --- D(("+"));
-	D --- E((3));
-	D --- F(("/"));
-	F --- G(("*"));
-	F --- H((2));
-    	G --- I((8));
-    	G --- J((4));
+  	B --- E((3));
+	D --- G((3));
+	D --- H(("/"));
+	H --- I(("*"));
+	H --- L((2));
+    	I --- J((8));
+    	I --- K((4));
 ```
 
+¿Cómo resuelve el algoritmo en el árbol?
+Se va reduciendo desde abajo hacia arriba
+<table>
+<tr>
+<td>Paso 1</td>
+<td>Paso 2</td>
+<td>Paso 3</td>
+<td>Paso Final</td>
+</tr>
+<tr>
+<td>
+
+```mermaid
+flowchart TD
+	A(("-")) --- B(("+"));
+	A --- C((5));
+	B --- D(("+"));
+  	B --- E((3));
+	D --- G((3));
+	D --- H(("/"));
+	H --- I((32));
+	H --- L((2));
+```
+
+</td>
+<td>
+	
+```mermaid
+	flowchart TD
+	A(("-")) --- B(("+"));
+	A --- C((5));
+	B --- D(("+"));
+  	B --- E((3));
+	D --- G((3));
+	D --- H((16));
+```
+
+</td>
+<td>
+	
+```mermaid
+	flowchart TD
+	A(("-")) --- B(("+"));
+	A --- C((5));
+	B --- D((19));
+  	B --- E((3));
+```
+
+</td>
+<td>
+	
+```mermaid
+	flowchart TD
+	A(("-")) --- B((22));
+	A --- C((5));
+```
+
+</td>
+</tr>
+
+</table>
 </details>
 
 [^tolow]: [tolower()](https://www.programiz.com/c-programming/library-function/ctype.h/tolower) convierte el carácter mayúscula a minúscula.
@@ -189,4 +251,4 @@ flowchart TD
 [^infixtorpncsharp]: https://github.com/karimo94/infix-to-rpn/blob/master/Program.cs
 [^strrev]: [Funcion strrev()](https://www.sololearn.com/Discuss/1350351/i-got-the-error-undefined-reference-to-strrev-how-could-i-remove-this), https://github.com/haytham2597/SSL/blob/master/02-Automatas/modules/binarytree.h#L86-L98
 [^treebinary]: Observe que en una gran parte del código se realizó sin una copia exacta del link. Se tuvo que rediseñar todo el algoritmo para cumplir el propósito del trabajo práctico.
-[^iteratetree]: Tenga en cuenta que no se remodificó el árbol, simplemente se invocó llamadas recursivas sobre subnodos hasta comprobar que tanto izquierda como derecha no sean nulos y tampoco operadores. Para ir resolviendo hasta llegar a la raíz.
+[^iteratetree]: Tenga en cuenta que no se remodificó el árbol, simplemente se invocó llamadas recursivas sobre subnodos hasta comprobar que tanto izquierda como derecha no sean nulos y tampoco operadores. Para ir resolviendo hasta llegar a la raíz, es decir se fue reduciendo el arbol.
