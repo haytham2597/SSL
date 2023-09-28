@@ -169,15 +169,15 @@ El armado del arbol binario [^treebinary] se aprendió con este [link](https://w
 Arbol binario de la ecuación del ejemplo: 3+4*8/2+3-5
 ```mermaid
 flowchart TD
-    	A[-] --- B[+];
-	A --- C[5];
-	B --- D[+];
-	D --- E[3];
-	D --- F["/"];
-	F --- G[*];
-	F --- H[2];
-    	G --- I[8];
-    	G --- J[4];
+    	A((("-"))) --- B((("+")));
+	A --- C(((5)));
+	B --- D((("+")));
+	D --- E(((3)));
+	D --- F((("/")));
+	F --- G((("*")));
+	F --- H(((2)));
+    	G --- I(((8)));
+    	G --- J(((4)));
 ```
 
 </details>
