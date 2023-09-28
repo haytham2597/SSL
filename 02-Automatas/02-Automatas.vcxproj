@@ -136,6 +136,9 @@
     <ClInclude Include="modules\stack.h" />
     <ClInclude Include="modules\usual_to_polaca.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="resources\CompilacionYEjecucion.jpg" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
