@@ -47,6 +47,42 @@ Un ejemplo con argumento al ejecutar el programa puede ser:
 </blockquote>
 <img alt="Ejemplo de ejecucion" src=resources/CompilacionYEjecucion.jpg></img>
 
+## [Automatas](modules/automata.h)
+<details open>
+
+### Presentamos el automata octal
+
+```mermaid
+flowchart LR;
+    A(("0-")) -- "0" --> B((1));
+    B -- "1,2,3,4,5,6,7" --> C((2+));
+    C -- "0,1,2,3,4,5,6,7"--> C;
+    B -- "0" --> D((3+));
+```
+
+### Automata Decimal
+
+```mermaid
+flowchart LR;
+    A(("0-")) -- "+, -" --> B((1));
+    B -- "1,2,3,4,5,6,7,8,9" --> C((2))
+    C -- "0,1,2,3,4,5,6,7,8,9" --> C(("2+"));
+    A -- "1,2,3,4,5,6,7,8,9" --> C
+    A -- "0" --> D((3+));
+```
+
+### Automata Hexadecimal
+
+```mermaid
+flowchart LR;
+    A(("0-")) -- "0" --> B((1));
+    B -- "x" --> C((2));
+    C -- "1,2,3,4,5,6,7,8,9,A,B,C,D,E,F" --> D(("3+"));
+    D -- "1,2,3,4,5,6,7,8,9,A,B,C,D,E,F" --> D;
+    C -- "0" --> E(("4+"));
+```
+
+</details>
 ## [Librería comunes](libs/common.h)
 <details open>
   <summary>Funciones esenciales</summary>
