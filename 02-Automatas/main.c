@@ -81,70 +81,57 @@ double Calculate(char* equation)
 int main(int argc, char* argv[])
 {
 	/*
-	 * 02-Automatas.exe 012$fc81$3+4*8/2+3-5 pepe$2*4+3/9-2$516731$FBA51$juan$49719
-	 * Cadena octal: 012
-	 * Cadena hexadecimal: fc81
+	 * main.exe 012$51tyia6$fc81$3+4*8/2+3-5 pepe$2*4+3/9-2$516731$0xFBA51$juan$49719$4++9-3*6
+	 * Cadena: octal de '012'
+	 * Error lexico en '51tyia6'
+	 * Error lexico en 'fc81'
 	 * Resultado de 3+4*8/2+3-5: 17.000000
 	 * Error lexico en 'pepe'
 	 * Resultado de 2*4+3/9-2: 6.333333
-	 * Cadena octal: 516731
-	 * Cadena hexadecimal: FBA51
+	 * Cadena: octal de '516731'
+	 * Cadena: hexadecimal de '0xFBA51'
 	 * Error lexico en 'juan'
-	 * Cadena decimal: 49719
-	 * Cantidad de grupos: 7
+	 * Cadena: decimal de '49719'
+	 * Error lexico en '4++9-3*6' el programa no puede realizar calculos
+	 * Cantidad de grupo error lexico: 4
+	 * Cantidad de grupo octal: 2
+	 * Cantidad de grupo decimal: 4
+	 * Cantidad de grupo hexadecimal: 1
 	*/
-
-	char str[] = "pepe$2*4+3/9-2$516731$FBA51$juan$49719$4++9-3*6";
-	char* toke = strtok(str, "$");
-	while (toke != NULL)
-	{
-		printf("Verificando: %s\n", toke);
-		enum TipoDeCadena tipo = verify_string(toke);
-		printf("TIpo: %i\n", tipo);
-		toke = strtok(NULL, "$");
-	}
-	system("PAUSE");
-	int cnt_g = 0; //cantidad de grupo
+	char name_groups[][20] = {"error lexico", "octal", "decimal", "hexadecimal"};
+	int groups[] = { 0,0,0,0 };
 	//Soporta múltiple argumentos
 	for(int i=1;i<argc;i++) //i=1 porque el índice 0 es la ruta de llamada.
 	{
 		char* tok = strtok(argv[i], "$");
 		while (tok != NULL)
 		{
-			const enum TipoDeCadena tipo =get_type(tok);
-			if (tipo == none) {
-				/*if (open_file(tok))
+			if (get_type(tok) == decimal && contain_operator(tok))
+			{
+				if (!is_possible_calculate(tok))
 				{
-					tok = strtok(NULL, "$");
-					continue; //evito indentaciones a las condiciones
-				}*/
-				printf("Error lexico en '%s'\n", tok); //Si contiene parentesis va a arrojar error lexico tamb
+					//TODO: Comprobar que sólo hay un operador en el 1er caracter y no en el resto. Si es el caso entonces es decimal
+					printf("Error lexico en '%s' el programa no puede realizar calculos\n", tok);
+				}
+				else {
+					printf("Resultado de %s: %f\n", tok, Calculate(tok));
+				}
 				tok = strtok(NULL, "$");
+				groups[2]++;
 				continue;
 			}
-			if (tipo == octal)
-				printf("Cadena octal: %s\n", tok);
-			if (tipo == decimal) //Calculate equation, primero valido si tiene operaciones
-			{
-				if (contain_operator(tok)) {
-					if(!is_possible_calculate(tok))
-					{
-						printf("Error lexico en '%s' el programa no puede realizar calculos\n", tok);
-						cnt_g--;
-					}
-					else {
-						printf("Resultado de %s: %f\n", tok, Calculate(tok));
-					}
-				}else
-				{
-					printf("Cadena decimal: %s\n", tok);
-				}
+			const enum TipoDeCadena tipo = verify_string(tok);
+			if (tipo == none) {
+				printf("Error lexico en '%s'\n", tok);
 			}
-			if (tipo == hexadecimal)
-				printf("Cadena hexadecimal: %s\n", tok);
+			else
+			{
+				printf("Cadena: %s de '%s'\n", name_groups[tipo], tok);
+			}
+			groups[tipo]++;
 			tok = strtok(NULL, "$");
-			cnt_g++;
 		}
 	}
-	printf("Cantidad de grupos: %i\n", cnt_g);
+	for (size_t i = 0; i < sizeof(groups) / sizeof(int); i++)
+		printf("Cantidad de grupo %s: %i\n", name_groups[i], groups[i]);
 }

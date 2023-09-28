@@ -72,6 +72,8 @@ enum TipoDeCadena get_type(const char* str)
 		else
 			explicit_type = hexadecimal;
 	}
+	if (explicit_type == hexadecimal && str[0] != '0' && tolower(str[1]) != 'x')
+		return none;
 	return explicit_type;
 }
 

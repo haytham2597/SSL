@@ -9,34 +9,20 @@
 #include "../libs/common.h"
 #endif
 
-
-/*typedef struct Node
-{
-	char* cadena;
-	struct Node* sig;
-}node_;
-
-node_* create()
-{
-    node_* ret = malloc(sizeof(node_));
-    ret->sig = NULL;
-    return ret;
-}*/
-
 //Tabla de transiciones
-/*const int tt_octal[4][9] = {
+const int tt_octal[4][9] = {
 	{1,3,3,3,3,3,3,3,3},
     {3,2,2,2,2,2,2,2,3},
     {2,2,2,2,2,2,2,2,3},
     {3,3,3,3,3,3,3,3,3},
-};*/
-const int tt_octal[5][9] = {
+};
+/*const int tt_octal[5][9] = {
     {1,4,4,4,4,4,4,4,4},
     {3,2,2,2,2,2,2,2,4},
     {2,2,2,2,2,2,2,2,4},
     {4,4,4,4,4,4,4,4,4},
     {4,4,4,4,4,4,4,4,4},
-};
+};*/
 
 const int tt_decimal[4][13] = {
 	{1,1,3,2,2,2,2,2,2,2,2,2,3},
@@ -84,17 +70,16 @@ int col_hex(char c)
 enum TipoDeCadena verify_string(char* str)
 {
     const enum TipoDeCadena type = get_type(str);
-    
     if (type == none)
         return type;
     
-    int state = -1;
+    int state = 0;
     for(size_t i=0;i<strlen(str);i++)
     {
 	    if(type == octal)
 	    {
             state = tt_octal[state][col_octal(str[i])];
-	    }
+	    } 
         else if(type == decimal)
         {
             state = tt_decimal[state][col_decimal(str[i])];
@@ -104,9 +89,9 @@ enum TipoDeCadena verify_string(char* str)
             state = tt_hexadecimal[state][col_hex(str[i])];
         }
     }
-    //printf("STATE: %i\n", state);
-    if (type == octal && state == 4)
-        return type;
+    if (type == octal || type == decimal)
+        if(state == 2 || state == 3)
+			return type;
     if(type == decimal || type== hexadecimal)
         if (state == 3)
             return type;
