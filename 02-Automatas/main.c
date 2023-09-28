@@ -23,10 +23,6 @@
 #include "modules/automata.h"
 #endif
 
-
-//Maxima línea para ficheros
-#define MAX_BUFFER 65535
-
 double Calculate(char* equation)
 {
     //stack_ st{.content = {0}, .size = 0};
@@ -40,7 +36,7 @@ double Calculate(char* equation)
 int main(int argc, char* argv[])
 {
 	/*
-	 * main.exe 012$51tyia6$fc81$3+4*8/2+3-5 pepe$2*4+3/9-2$516731$0xFBA51$juan$49719$4++9-3*6
+	 * main.exe 012$51tyia6$fc81$3+4*8/2+3-5 pepe$2*4+3/9-2$516731$0xFBA51$juan$49719$4++9-3*6$-971
 	 * Cadena: octal de '012'
 	 * Error lexico en '51tyia6'
 	 * Error lexico en 'fc81'
@@ -52,13 +48,12 @@ int main(int argc, char* argv[])
 	 * Error lexico en 'juan'
 	 * Cadena: decimal de '49719'
 	 * Error lexico en '4++9-3*6' el programa no puede realizar calculos
-	 * Cantidad de grupo error lexico: 4
+	 * Cadena: decimal de '-971'
+	 * Cantidad de grupo error lexico: 5
 	 * Cantidad de grupo octal: 2
-	 * Cantidad de grupo decimal: 4
+	 * Cantidad de grupo decimal: 2
 	 * Cantidad de grupo hexadecimal: 1
 	*/
-	/*char* ca = "err";
-	printf("%s", &ca[1]);*/
 	char name_groups[][20] = {"error lexico", "octal", "decimal", "hexadecimal"};
 	int groups[] = { 0,0,0,0 };
 	//Soporta múltiple argumentos
@@ -80,7 +75,7 @@ int main(int argc, char* argv[])
 				}
 				else
 				{
-					//Solo tiene operador en el 1er caracter y teoricamente es un + o - queda comprobar con automata
+					//Solo tiene operador en el 1er caracter y es un + o - queda comprobar con automata
 					if(tok[0] == '+' ^ tok[0] == '-' && verify_string(tok) == decimal) //https://www.wolframalpha.com/input?i=truth+table+p+xor+q+and+n&lang=es
 					{
 						groups[decimal]++;
