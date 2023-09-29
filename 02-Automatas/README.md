@@ -17,6 +17,7 @@ Sumado a todo esto también contamos la cantidad de grupos correctos que existen
 Verificamos todas las entradas de cadena separados con el símbolo `$`, si son decimales con operadores verificamos si podemos resolver 
 la ecuación, en caso de poder resolverlo el programa lo resuelve finalmente presentamos la cantidad de grupos.
 Para la resolución de operaciones aritméticas en una cadena es necesario pasar la notación `infija` a notación `polaca inversa` la idea se sacó de la guía teórica de `Matemática Discreta Unidad 9 página 129`
+En caso de ser decimales pero tener en el 1er caracter sólo el `'-'` o el `'+'` verificamos la cadena con automata y en caso de ser octal o hexadecimal también verificamos la misma con automata. 
 
 # Compilación
 En la ruta absoluta del directorio `02-Automatas` invocar con CMD `gcc main.c -o main.exe --std=c11` 
@@ -46,6 +47,41 @@ Un ejemplo con argumento al ejecutar el programa puede ser:
 </blockquote>
 <img alt="Ejemplo de ejecucion" src=resources/CompilacionYEjecucion.jpg></img>
 
+## [Automatas](modules/automata.h)
+
+Presentamos los autómatas; Octal, Decimal y Hexadecimal
+### Automata octal
+
+```mermaid
+flowchart LR;
+    A(("0-")) -- "0" --> B((1));
+    B -- "1,2,3,4,5,6,7" --> C((2+));
+    C -- "0,1,2,3,4,5,6,7"--> C;
+    B -- "0" --> D((3+));
+```
+
+### Automata Decimal
+
+```mermaid
+flowchart LR;
+    A(("0-")) -- "+, -" --> B((1));
+    B -- "1,2,3,4,5,6,7,8,9" --> C((2))
+    C -- "0,1,2,3,4,5,6,7,8,9" --> C(("2+"));
+    A -- "1,2,3,4,5,6,7,8,9" --> C
+    A -- "0" --> D((3+));
+```
+
+### Automata Hexadecimal
+
+```mermaid
+flowchart LR;
+    A(("0-")) -- "0" --> B((1));
+    B -- "x" --> C((2));
+    C -- "1,2,3,4,5,6,7,8,9,A,B,C,D,E,F" --> D(("3+"));
+    D -- "1,2,3,4,5,6,7,8,9,A,B,C,D,E,F" --> D;
+    C -- "0" --> E(("4+"));
+```
+
 ## [Librería comunes](libs/common.h)
 <details open>
   <summary>Funciones esenciales</summary>
@@ -71,13 +107,17 @@ char* add_parenthesis(const char* eq);
 `strlen(str)` [^strlen]<br>
 Primero pasamos a `tolower(str[i]);` [^tolow] para obtener los caracteres en minúsculas, de esta forma tenemos más control. Como se puede ver en la tabla de [^ascii] los números inferiores a 48 se encuentran caracteres que no nos interesa comprobar lo mismo para superiores a 102 entonces si algún carácter posee entre [0-47] y [103-255] (ya que el 102 es `f` y la misma pertenece a los caracteres hexadecimales) retornamos none mejor dicho sería un error léxico. Exceptuando si se tratara de operadores que se encuentra en 42, 43, 45 y 47.
 Los que cumplen con el criterio se va asignado el tipo de cadena que es; octal, decimal, etc.
+
 ```c
-inline enum TipoDeCadena get_type(const char* str)
+enum TipoDeCadena get_type(const char* str)
 {
 	enum TipoDeCadena explicit_type = none;
-	for (size_t i = 0; i < strlen(str); i++)
+	if (str[0] == '0' && tolower(str[1]) == 'x')
+		explicit_type= hexadecimal;
+	for (size_t i = explicit_type == hexadecimal ? 2 : 0; i < strlen(str); i++)
 	{
-		const int low = tolower(str[i]);
+		const int low = tolower(str[i]); //https://www.programiz.com/c-programming/library-function/ctype.h/tolower
+		
 		if (is_operator(low)) //Excluir los que contienen operaciones, ya que solo validamos cadena aunque la cadena tenga signo con decimal, retorna decimal igual.
 			continue;
 		if (low < 48 || low > 102)
@@ -95,12 +135,15 @@ inline enum TipoDeCadena get_type(const char* str)
 		else
 			explicit_type = hexadecimal;
 	}
+	if (explicit_type == hexadecimal && str[0] != '0' && tolower(str[1]) != 'x')
+		return none;
 	return explicit_type;
 }
 ```
 
 La otra función esencial que forma fuertemente parte del ejercicio es la conversión del `char a enteros`
 Observando [^ascii] podemos ver que si el char es un decimal (entre 0 y 9) el char forma parte entre 48 y 57 de la tabla ASCII substraemos por el mínimo (48) para representar el entero
+
 ```c
 inline int char_to_int(char ch)
 {
